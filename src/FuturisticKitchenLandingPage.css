@@ -1,13 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: white;
-  color: #1a202c;
-}
-
 .kitchen-landing-page {
   max-width: 1200px;
   margin: 0 auto;
@@ -15,6 +5,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 .header {
@@ -27,13 +19,17 @@ body {
 .logo {
   font-size: 24px;
   font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .applications-open {
-  background-color: #f7f7f8;
+  background-color: rgba(255, 255, 255, 0.2);
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 12px;
+  backdrop-filter: blur(5px);
+  font-weight: 600;
 }
 
 .main-content {
@@ -47,6 +43,9 @@ body {
   text-align: center;
   max-width: 800px;
   margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 15px;
 }
 
 .title {
@@ -56,28 +55,33 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .subtitle {
   font-size: 18px;
-  color: #718096;
+  color: #ffffff;
   max-width: 600px;
   margin: 0 auto;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .private-alpha-group {
   text-align: right;
   font-size: 12px;
-  font-weight: 500;
-  color: #718096;
+  font-weight: 600;
+  color: #ffffff;
   margin-bottom: -20px;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .application-form {
-  background-color: #f7f7f8;
+  background-color: rgba(0, 0, 0, 0.7);
   padding: 40px;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 .form-header {
@@ -90,6 +94,8 @@ body {
 .form-title {
   font-size: 24px;
   margin: 0;
+  color: #ffffff;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 .form-grid {
@@ -111,19 +117,22 @@ body {
 .form-field label {
   margin-bottom: 5px;
   font-size: 14px;
+  color: #ffffff;
+  font-weight: 600;
 }
 
 .form-field input {
   padding: 10px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 5px;
   font-size: 16px;
-  background-color: #e2e8f0;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
 }
 
 .submit-button {
   width: 100%;
-  background-color: #000;
+  background-color: rgba(66, 153, 225, 0.8);
   color: #fff;
   padding: 12px;
   border: none;
@@ -131,37 +140,12 @@ body {
   font-size: 16px;
   cursor: pointer;
   margin-top: 20px;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
 }
 
-.about-section {
-  max-width: 600px;
-}
-
-.about-title {
-  font-size: 32px;
-  margin-bottom: 20px;
-}
-
-.community-label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 10px;
-}
-
-.about-content {
-  font-size: 16px;
-  line-height: 1.5;
-  color: #4a5568;
-}
-
-.footer {
-  margin-top: 60px;
-  text-align: center;
-  font-size: 14px;
-  color: #718096;
+.submit-button:hover {
+  background-color: rgba(49, 130, 206, 1);
 }
 
 @media (max-width: 768px) {

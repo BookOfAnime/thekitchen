@@ -75,13 +75,7 @@ const FuturisticKitchenLandingPage = () => {
             </motion.button>
           </form>
         </motion.div>
-        
       </main>
-      {/* <footer className="footer">
-        <p>All rights reserved © 2024 The Kitchen</p>
-        <p>Have a question? Send us a DM on X and we'll get back to you asap.</p>
-        <a href="https://twitter.com/0xKitchen" target="_blank" rel="noopener noreferrer">@0xKitchen</a>
-      </footer> */}
     </div>
   );
 };
