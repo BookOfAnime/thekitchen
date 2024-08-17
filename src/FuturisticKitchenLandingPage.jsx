@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 import './FuturisticKitchenLandingPage.css';
 
+
 const FuturisticKitchenLandingPage = () => {
   return (
     <div className="kitchen-landing-page">
