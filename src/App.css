@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 :root {
-  --primary-color: #64ffda;
-  --background-color: #0a192f;
-  --text-color: #e6f1ff;
-  --card-background: rgba(10, 25, 47, 0.7);
-  --card-border: rgba(100, 255, 218, 0.3);
+  --primary-color: #c0c0c0; /* Silver */
+  --accent-color: #ffd700; /* Gold */
+  --background-color: #1c2331; /* Dark steel blue */
+  --text-color: #e6e6e6; /* Light grey */
+  --card-background: rgba(28, 35, 49, 0.7);
+  --card-border: rgba(192, 192, 192, 0.3);
 }
 
 * {
@@ -25,6 +26,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
 }
 
 .spline-background {
@@ -34,25 +37,27 @@ body {
   width: 100%;
   height: 100%;
   z-index: -1;
+  transition: transform 0.1s ease-out;
 }
 
-.spline-scene {
+.s {
   width: 100%;
   height: 100%;
+  z-index: 2;
 }
 
 .glass-effect {
-  background: rgba(10, 25, 47, 0.25);
+  background: rgba(28, 35, 49, 0.25);
   backdrop-filter: blur(10px);
   border-radius: 10px;
-  border: 1px solid rgba(100, 255, 218, 0.18);
+  border: 1px solid rgba(192, 192, 192, 0.18);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   padding: 20px;
   transition: all 0.3s ease;
 }
 
 .glass-effect:hover {
-  box-shadow: 0 8px 32px 0 rgba(100, 255, 218, 0.37);
+  box-shadow: 0 8px 32px 0 rgba(192, 192, 192, 0.37);
 }
 
 .button-container {
@@ -70,14 +75,15 @@ body {
   padding: 15px 30px;
   font-size: clamp(16px, 2vw, 18px);
   font-weight: 600;
-  color: var(--primary-color);
-  background-color: rgba(100, 255, 218, 0.1);
-  border: 2px solid var(--primary-color);
+  color: var(--background-color);
+  background: linear-gradient(145deg, #d0d0d0, #a0a0a0);
+  border: none;
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s ease;
   overflow: hidden;
   position: relative;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
 }
 
 .button-text {
@@ -91,9 +97,13 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(100, 255, 218, 0.4) 0%, rgba(100, 255, 218, 0) 70%);
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, rgba(255, 215, 0, 0) 70%);
   opacity: 0;
   transition: opacity 0.3s ease;
+}
+
+.explore-button:hover {
+  background: linear-gradient(145deg, #e0e0e0, #b0b0b0);
 }
 
 .explore-button:hover .button-glow {
@@ -106,9 +116,11 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
-.kitchen-landing-page {
+.synergy-landing-page {
   color: var(--text-color);
 }
 
@@ -126,16 +138,18 @@ body {
   gap: 10px;
   font-weight: 700;
   font-size: 1.2rem;
-  color: var(--primary-color);
+  color: var(--accent-color);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
 .applications-open {
-  background-color: var(--primary-color);
+  background: linear-gradient(145deg, #ffd700, #ffc000);
   color: var(--background-color);
   padding: 5px 10px;
   border-radius: 20px;
   font-weight: 600;
   font-size: 0.9rem;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
 }
 
 .welcome-section {
@@ -148,6 +162,7 @@ body {
   font-size: clamp(2rem, 5vw, 3rem);
   margin-bottom: 20px;
   color: var(--primary-color);
+  text-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
 }
 
 .subtitle {
@@ -171,7 +186,8 @@ body {
 
 .feature h3 {
   margin: 10px 0;
-  color: var(--primary-color);
+  color: var(--accent-color);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
 .private-alpha-group {
@@ -180,6 +196,8 @@ body {
   margin: 40px 0;
   font-size: clamp(1rem, 2vw, 1.2rem);
   padding: 10px;
+  color: var(--accent-color);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
 .application-form {
@@ -192,12 +210,13 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 .form-title {
   font-size: 1.5rem;
   margin: 0;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
 .form-grid {
@@ -221,17 +240,26 @@ label {
   color: var(--primary-color);
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"],
+input[type="number"],
+textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid var(--primary-color);
-  background-color: rgba(100, 255, 218, 0.1);
+  background-color: rgba(192, 192, 192, 0.1);
   color: var(--text-color);
   border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
 }
 
 .submit-button {
-  background-color: var(--primary-color);
+  background: linear-gradient(145deg, #ffd700, #ffc000);
   color: var(--background-color);
   border: none;
   padding: 10px 20px;
@@ -240,10 +268,11 @@ input[type="text"] {
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
 }
 
 .submit-button:hover {
-  background-color: rgba(100, 255, 218, 0.8);
+  background: linear-gradient(145deg, #ffe030, #ffd030);
 }
 
 .about-us {
@@ -254,14 +283,16 @@ input[type="text"] {
 .about-us h2 {
   font-size: clamp(1.5rem, 3vw, 2rem);
   margin-bottom: 20px;
-  color: var(--primary-color);
+  color: var(--accent-color);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
 .about-us h3 {
   font-size: clamp(1.2rem, 2.5vw, 1.5rem);
   margin-top: 30px;
   margin-bottom: 15px;
-  color: var(--primary-color);
+  color: var(--accent-color);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
 .about-us p {
@@ -282,7 +313,7 @@ input[type="text"] {
 
 .about-us li svg {
   margin-right: 10px;
-  color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 /* Animations */
