@@ -240,7 +240,6 @@ const AboutUs = () => {
 function App() {
   const [showButton, setShowButton] = useState(false);
   const [enterSite, setEnterSite] = useState(false);
-  const [splineOffset, setSplineOffset] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -254,54 +253,39 @@ function App() {
     setEnterSite(true);
   };
 
-  const handleSplineMove = (e) => {
-    if (e.buttons === 1) {
-      setSplineOffset((prevOffset) => ({
-        x: prevOffset.x + e.movementX,
-        y: prevOffset.y + e.movementY,
-      }));
-    }
-  };
-
   return (
     <div className="app-container">
-      <div
-        className="spline-background"
-        style={{
-          transform: `translate(${splineOffset.x}px, ${splineOffset.y}px)`,
-          cursor: "move",
-        }}
-        onMouseMove={handleSplineMove}
-      >
+      <div className="spline-background">
         <Spline
           className="s"
           scene="https://prod.spline.design/vrrnxlXkYvdoZTNu/scene.splinecode"
         />
       </div>
-      <AnimatePresence>
-        {!enterSite && showButton && (
-          <motion.div
-            className="button-container"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            transition={{ duration: 0.5 }}
-          >
-            <motion.button
-              className="explore-button glass-effect"
-              onClick={handleEnter}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)",
-              }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="button-text">Enter Synergy</span>
-              <span className="button-glow"></span>
-            </motion.button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {!enterSite && showButton && (
+        <motion.button
+          className="explore-button glass-effect"
+          onClick={handleEnter}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 50 }}
+          transition={{ duration: 0.5 }}
+          whileHover={{
+            scale: 1.05,
+            boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)",
+          }}
+          whileTap={{ scale: 0.95 }}
+          style={{
+            position: 'fixed',
+            bottom: '10vh',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 10,
+          }}
+        >
+          <span className="button-text">Enter Synergy</span>
+          <span className="button-glow"></span>
+        </motion.button>
+      )}
       <AnimatePresence>
         {enterSite && (
           <motion.div

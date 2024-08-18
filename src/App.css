@@ -36,14 +36,24 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
-  transition: transform 0.1s ease-out;
+  z-index: 1; /* Keep it behind all content */
+  pointer-events: auto; /* Allow click events on the Spline component */
 }
 
 .s {
   width: 100%;
   height: 100%;
-  z-index: 2;
+}
+
+.site-content {
+  flex-grow: 1;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 2; /* Keep it above the Spline background */
+  pointer-events: none; /* Disable pointer events so clicks pass through */
 }
 
 .glass-effect {
@@ -54,21 +64,11 @@ body {
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   padding: 20px;
   transition: all 0.3s ease;
+  pointer-events: auto; /* Re-enable pointer events for interactive elements */
 }
 
 .glass-effect:hover {
   box-shadow: 0 8px 32px 0 rgba(192, 192, 192, 0.37);
-}
-
-.button-container {
-  position: fixed;
-  bottom: 10vh;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
 }
 
 .explore-button {
@@ -84,6 +84,7 @@ body {
   overflow: hidden;
   position: relative;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
+  pointer-events: auto;
 }
 
 .button-text {
@@ -108,20 +109,6 @@ body {
 
 .explore-button:hover .button-glow {
   opacity: 1;
-}
-
-.site-content {
-  flex-grow: 1;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  position: relative;
-  z-index: 1;
-}
-
-.synergy-landing-page {
-  color: var(--text-color);
 }
 
 .header {
@@ -269,6 +256,7 @@ textarea {
   cursor: pointer;
   transition: all 0.3s ease;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
+  pointer-events: auto;
 }
 
 .submit-button:hover {
@@ -336,23 +324,37 @@ textarea {
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
-  .features {
-    flex-direction: column;
-  }
-
+@media (max-width: 1024px) {
   .header {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
 
-  .applications-open {
-    align-self: flex-start;
+  .features {
+    flex-direction: column;
   }
 
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .application-form {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .features {
+    flex-direction: column;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .application-form {
+    padding: 0 20px;
   }
 }
 
@@ -367,12 +369,45 @@ textarea {
     padding: 20px;
   }
 
-  .button-container {
-    bottom: 5vh;
-  }
-
   .explore-button {
     padding: 10px 20px;
     font-size: 14px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .logo {
+    font-size: 1rem;
+  }
+
+  .applications-open {
+    font-size: 0.8rem;
+    padding: 5px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .features {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .submit-button {
+    width: 100%;
   }
 }
