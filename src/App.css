@@ -2,7 +2,7 @@
 
 :root {
   --primary-color: #c0c0c0; /* Silver */
-  --accent-color: #ffd700; /* Gold */
+  --accent-color: #9507c1; /* Gold */
   --background-color: #1c2331; /* Dark steel blue */
   --text-color: #e6e6e6; /* Light grey */
   --card-background: rgba(28, 35, 49, 0.7);
@@ -143,7 +143,7 @@ body {
 }
 
 .applications-open {
-  background: linear-gradient(145deg, #ffd700, #ffc000);
+  background: linear-gradient(145deg, #b203d5, #ffc000);
   color: var(--background-color);
   padding: 5px 10px;
   border-radius: 20px;
@@ -259,7 +259,7 @@ textarea {
 }
 
 .submit-button {
-  background: linear-gradient(145deg, #ffd700, #ffc000);
+  background: linear-gradient(145deg, #b203d5, #ffc000);
   color: var(--background-color);
   border: none;
   padding: 10px 20px;

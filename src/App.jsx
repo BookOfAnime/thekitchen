@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Spline from '@splinetool/react-spline';
-import { Zap, TrendingUp, Users, Target } from 'lucide-react';
-import './App.css';
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Spline from "@splinetool/react-spline";
+import { Zap, TrendingUp, Users, Target } from "lucide-react";
+import "./App.css";
 
 const LazyLoad = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -18,7 +18,7 @@ const LazyLoad = ({ children }) => {
       },
       {
         root: null,
-        rootMargin: '0px',
+        rootMargin: "0px",
         threshold: 0.1,
       }
     );
@@ -34,11 +34,7 @@ const LazyLoad = ({ children }) => {
     };
   }, []);
 
-  return (
-    <div ref={ref}>
-      {isVisible && children}
-    </div>
-  );
+  return <div ref={ref}>{isVisible && children}</div>;
 };
 
 const Feature = ({ icon: Icon, title, description }) => (
@@ -68,11 +64,11 @@ const SynergyLandingPage = () => {
           <div className="applications-open">Applications Open</div>
         </header>
       </LazyLoad>
-      
+
       <main className="main-content">
         <LazyLoad>
           <section className="welcome-section glass-effect">
-            <motion.h1 
+            <motion.h1
               className="title"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
@@ -80,29 +76,30 @@ const SynergyLandingPage = () => {
             >
               Welcome to Synergy <Zap size={32} />
             </motion.h1>
-            <motion.p 
+            <motion.p
               className="subtitle"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              We are a collective of innovators inspired by the power of collaboration and shared vision.
+              We are a collective of innovators inspired by the power of
+              collaboration and shared vision.
             </motion.p>
           </section>
         </LazyLoad>
 
         <div className="features">
-          <Feature 
+          <Feature
             icon={TrendingUp}
             title="Accelerate Growth"
             description="Boost your potential through our combined expertise"
           />
-          <Feature 
+          <Feature
             icon={Users}
             title="Collaborative Network"
             description="Join a community of like-minded innovators"
           />
-          <Feature 
+          <Feature
             icon={Target}
             title="Achieve Excellence"
             description="Reach new heights in your professional journey"
@@ -110,11 +107,13 @@ const SynergyLandingPage = () => {
         </div>
 
         <LazyLoad>
-          <div className="private-alpha-group glass-effect">ELITE INNOVATION HUB</div>
+          <div className="private-alpha-group glass-effect">
+            ELITE INNOVATION HUB
+          </div>
         </LazyLoad>
 
         <LazyLoad>
-          <motion.div 
+          <motion.div
             className="glass-effect application-form"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -128,27 +127,58 @@ const SynergyLandingPage = () => {
               <div className="form-grid">
                 <div className="form-field">
                   <label htmlFor="name">Full Name</label>
-                  <input type="text" id="name" name="name" placeholder="John Doe" required />
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="John Doe"
+                    required
+                  />
                 </div>
                 <div className="form-field">
                   <label htmlFor="email">Email Address</label>
-                  <input type="email" id="email" name="email" placeholder="john@example.com" required />
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="john@example.com"
+                    required
+                  />
                 </div>
                 <div className="form-field">
                   <label htmlFor="expertise">Area of Expertise</label>
-                  <input type="text" id="expertise" name="expertise" placeholder="e.g., AI, Blockchain" required />
+                  <input
+                    type="text"
+                    id="expertise"
+                    name="expertise"
+                    placeholder="e.g., AI, Blockchain"
+                    required
+                  />
                 </div>
                 <div className="form-field">
                   <label htmlFor="experience">Years of Experience</label>
-                  <input type="number" id="experience" name="experience" placeholder="5" required />
+                  <input
+                    type="number"
+                    id="experience"
+                    name="experience"
+                    placeholder="5"
+                    required
+                  />
                 </div>
               </div>
               <div className="form-field full-width">
-                <label htmlFor="motivation">What motivates you to join Synergy?</label>
-                <textarea id="motivation" name="motivation" placeholder="Share your thoughts..." required></textarea>
+                <label htmlFor="motivation">
+                  What motivates you to join Synergy?
+                </label>
+                <textarea
+                  id="motivation"
+                  name="motivation"
+                  placeholder="Share your thoughts..."
+                  required
+                ></textarea>
               </div>
-              <motion.button 
-                type="submit" 
+              <motion.button
+                type="submit"
                 className="submit-button"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -166,22 +196,42 @@ const SynergyLandingPage = () => {
 const AboutUs = () => {
   return (
     <LazyLoad>
-      <motion.div 
+      <motion.div
         className="glass-effect about-us"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
         <h2>About Synergy</h2>
-        <p>Synergy is a cutting-edge collective of innovators who believe in the power of collaboration, shared knowledge, and continuous growth. We strive to create an environment where ideas flourish and innovations thrive.</p>
+        <p>
+          Synergy is a cutting-edge collective of innovators who believe in the
+          power of collaboration, shared knowledge, and continuous growth. We
+          strive to create an environment where ideas flourish and innovations
+          thrive.
+        </p>
         <h3>Our Core Values</h3>
         <ul>
-          <li><Zap size={16} /> Innovation: We push the boundaries of what's possible.</li>
-          <li><TrendingUp size={16} /> Growth: We constantly evolve and adapt to stay ahead.</li>
-          <li><Users size={16} /> Collaboration: We believe in the power of collective intelligence.</li>
-          <li><Target size={16} /> Excellence: We strive for nothing less than the best in all we do.</li>
+          <li>
+            <Zap size={16} /> Innovation: We push the boundaries of what's
+            possible.
+          </li>
+          <li>
+            <TrendingUp size={16} /> Growth: We constantly evolve and adapt to
+            stay ahead.
+          </li>
+          <li>
+            <Users size={16} /> Collaboration: We believe in the power of
+            collective intelligence.
+          </li>
+          <li>
+            <Target size={16} /> Excellence: We strive for nothing less than the
+            best in all we do.
+          </li>
         </ul>
-        <p>Join Synergy and be part of a movement that's shaping the future of innovation!</p>
+        <p>
+          Join Synergy and be part of a movement that's shaping the future of
+          innovation!
+        </p>
       </motion.div>
     </LazyLoad>
   );
@@ -206,26 +256,27 @@ function App() {
 
   const handleSplineMove = (e) => {
     if (e.buttons === 1) {
-      setSplineOffset(prevOffset => ({
+      setSplineOffset((prevOffset) => ({
         x: prevOffset.x + e.movementX,
-        y: prevOffset.y + e.movementY
+        y: prevOffset.y + e.movementY,
       }));
     }
   };
 
   return (
     <div className="app-container">
-      <div 
+      <div
         className="spline-background"
         style={{
           transform: `translate(${splineOffset.x}px, ${splineOffset.y}px)`,
-          cursor: 'move'
+          cursor: "move",
         }}
         onMouseMove={handleSplineMove}
       >
         <Spline
           className="s"
-          scene="https://prod.spline.design/vrrnxlXkYvdoZTNu/scene.splinecode" />
+          scene="https://prod.spline.design/vrrnxlXkYvdoZTNu/scene.splinecode"
+        />
       </div>
       <AnimatePresence>
         {!enterSite && showButton && (
@@ -239,7 +290,10 @@ function App() {
             <motion.button
               className="explore-button glass-effect"
               onClick={handleEnter}
-              whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)" }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)",
+              }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="button-text">Enter Synergy</span>
