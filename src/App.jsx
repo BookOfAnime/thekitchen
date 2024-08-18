@@ -225,8 +225,7 @@ function App() {
       >
         <Spline
           className="s"
-          scene="https://prod.spline.design/1xZzVQHJBP17-0LI/scene.splinecode"
-        />
+          scene="https://prod.spline.design/vrrnxlXkYvdoZTNu/scene.splinecode" />
       </div>
       <AnimatePresence>
         {!enterSite && showButton && (
