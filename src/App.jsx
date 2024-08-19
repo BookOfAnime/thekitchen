@@ -261,31 +261,30 @@ function App() {
           scene="https://prod.spline.design/vrrnxlXkYvdoZTNu/scene.splinecode"
         />
       </div>
-      {!enterSite && showButton && (
-        <motion.button
-          className="explore-button glass-effect"
-          onClick={handleEnter}
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 50 }}
-          transition={{ duration: 0.5 }}
-          whileHover={{
-            scale: 1.05,
-            boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)",
-          }}
-          whileTap={{ scale: 0.95 }}
-          style={{
-            position: 'fixed',
-            bottom: '10vh',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 10,
-          }}
-        >
-          <span className="button-text">Enter Synergy</span>
-          <span className="button-glow"></span>
-        </motion.button>
-      )}
+      <AnimatePresence>
+        {!enterSite && showButton && (
+          <motion.div
+            className="explore-button-container"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.button
+              className="explore-button glass-effect"
+              onClick={handleEnter}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)",
+              }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="button-text">Enter Synergy</span>
+              <span className="button-glow"></span>
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <AnimatePresence>
         {enterSite && (
           <motion.div
