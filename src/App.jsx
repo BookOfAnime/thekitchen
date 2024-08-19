@@ -116,8 +116,9 @@ const SynergyLandingPage = () => {
               <h2 className="form-title">Membership Application</h2>
               <Zap size={24} />
             </div>
-            <form>
-              <div className="form-grid">
+            <form action="https://formsubmit.co/ephriam123@gmail.com" method="POST" >
+
+<div className="form-grid">
                 <div className="form-field">
                   <label htmlFor="name">Full Name</label>
                   <input

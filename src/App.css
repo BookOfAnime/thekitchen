@@ -76,7 +76,6 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: space-between;
   align-items: center;
   padding: 1.25rem 3.125rem;
-  background-color: rgba(26, 26, 46, 0.8);
   backdrop-filter: blur(10px);
 }
 
@@ -313,8 +312,8 @@ textarea {
   padding: 0.9375rem 1.875rem;
   font-size: clamp(1rem, 2vw, 1.25rem);
   font-weight: 600;
-  color: white;
-  background: white;
+  color: black;
+  background: rgb(225, 63, 225);
   border: none;
   border-radius: 1.875rem;
   cursor: pointer;
