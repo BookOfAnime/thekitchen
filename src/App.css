@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Space';
-  src: url('/glen.ttf') format('truetype');
+  src: url('/at.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -11,7 +11,7 @@
   --primary-color: #1a1a2e;
   --secondary-color: #16213e;
   --accent-color: #0f3460;
-  --text-color: #e94560;
+  --text-color: #b61bcb;
   --light-text-color: #ffffff;
   --background-color: #000000;
   --heading-font: 'Space', sans-serif;
@@ -313,8 +313,8 @@ textarea {
   padding: 0.9375rem 1.875rem;
   font-size: clamp(1rem, 2vw, 1.25rem);
   font-weight: 600;
-  color: var(--primary-color);
-  background: var(--text-color);
+  color: white;
+  background: white;
   border: none;
   border-radius: 1.875rem;
   cursor: pointer;
@@ -350,6 +350,38 @@ textarea {
   opacity: 1;
 }
 
+.animated-title {
+  font-size: clamp(3rem, 10vw, 6rem);
+  color: var(--text-color);
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--heading-font);
+  text-shadow: 0 0 10px rgba(233, 69, 96, 0.7);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.glass-effect {
+  background: rgba(26, 26, 46, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 @media (max-width: 64rem) { /* 1024px */
   html {
     font-size: 14px;
@@ -373,6 +405,11 @@ textarea {
 
   .about-us {
     padding: 2rem 1.5rem;
+  }
+
+  .explore-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
   }
 }
 
@@ -410,7 +447,8 @@ textarea {
   }
 
   .explore-button {
-    padding: 0.75rem 1.5rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
   }
 }
 
@@ -442,7 +480,7 @@ textarea {
   }
 
   .explore-button {
-    padding: 0.625rem 1.25rem;
-    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
   }
 }

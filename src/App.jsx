@@ -34,16 +34,24 @@ const LazyLoad = ({ children }) => {
     };
   }, []);
 
-  return <div ref={ref}>{isVisible && children}</div>;
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5 }}
+    >
+      {isVisible && children}
+    </motion.div>
+  );
 };
 
 const Feature = ({ icon: Icon, title, description }) => (
   <LazyLoad>
     <motion.div
-      className="feature glass-effect"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      className="feature"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
     >
       <Icon size={24} />
       <h3>{title}</h3>
@@ -56,7 +64,7 @@ const SynergyLandingPage = () => {
   return (
     <div className="synergy-landing-page">
       <LazyLoad>
-        <header className="header glass-effect">
+        <header className="header">
           <div className="logo">
             <Zap size={24} />
             <span>Synergy</span>
@@ -67,24 +75,14 @@ const SynergyLandingPage = () => {
 
       <main className="main-content">
         <LazyLoad>
-          <section className="welcome-section glass-effect">
-            <motion.h1
-              className="title"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
+          <section className="welcome-section">
+            <h1 className="title">
               Welcome to Synergy <Zap size={32} />
-            </motion.h1>
-            <motion.p
-              className="subtitle"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
+            </h1>
+            <p className="subtitle">
               We are a collective of innovators inspired by the power of
               collaboration and shared vision.
-            </motion.p>
+            </p>
           </section>
         </LazyLoad>
 
@@ -107,18 +105,13 @@ const SynergyLandingPage = () => {
         </div>
 
         <LazyLoad>
-          <div className="private-alpha-group glass-effect">
+          <div className="private-alpha-group">
             ELITE INNOVATION HUB
           </div>
         </LazyLoad>
 
         <LazyLoad>
-          <motion.div
-            className="glass-effect application-form"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div className="application-form">
             <div className="form-header">
               <h2 className="form-title">Membership Application</h2>
               <Zap size={24} />
@@ -186,7 +179,7 @@ const SynergyLandingPage = () => {
                 Submit Application
               </motion.button>
             </form>
-          </motion.div>
+          </div>
         </LazyLoad>
       </main>
     </div>
@@ -196,12 +189,7 @@ const SynergyLandingPage = () => {
 const AboutUs = () => {
   return (
     <LazyLoad>
-      <motion.div
-        className="glass-effect about-us"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <div className="about-us">
         <h2>About Synergy</h2>
         <p>
           Synergy is a cutting-edge collective of innovators who believe in the
@@ -232,7 +220,7 @@ const AboutUs = () => {
           Join Synergy and be part of a movement that's shaping the future of
           innovation!
         </p>
-      </motion.div>
+      </div>
     </LazyLoad>
   );
 };
@@ -240,13 +228,24 @@ const AboutUs = () => {
 function App() {
   const [showButton, setShowButton] = useState(false);
   const [enterSite, setEnterSite] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowButton(true);
     }, 3000);
 
-    return () => clearTimeout(timer);
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', checkScreenSize);
+    };
   }, []);
 
   const handleEnter = () => {
@@ -255,12 +254,14 @@ function App() {
 
   return (
     <div className="app-container">
-      <div className="spline-background">
-        <Spline
-          className="s"
-          scene="https://prod.spline.design/vrrnxlXkYvdoZTNu/scene.splinecode"
-        />
-      </div>
+      {isLargeScreen && (
+        <div className="spline-background">
+          <Spline
+            className="s"
+            scene="https://prod.spline.design/vrrnxlXkYvdoZTNu/scene.splinecode"
+          />
+        </div>
+      )}
       <AnimatePresence>
         {!enterSite && showButton && (
           <motion.div
@@ -271,7 +272,7 @@ function App() {
             transition={{ duration: 0.5 }}
           >
             <motion.button
-              className="explore-button glass-effect"
+              className="explore-button"
               onClick={handleEnter}
               whileHover={{
                 scale: 1.05,
@@ -279,7 +280,7 @@ function App() {
               }}
               whileTap={{ scale: 0.95 }}
             >
-              <span className="button-text">Enter Synergy</span>
+              <span className="button-text">Join Us</span>
               <span className="button-glow"></span>
             </motion.button>
           </motion.div>
