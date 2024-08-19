@@ -60,7 +60,7 @@ const Feature = ({ icon: Icon, title, description, delay }) => (
       <div className="feature-icon">
         <Icon size={32} />
       </div>
-      <h3 className="feature-title">{title}</h3>
+      <h3 className="feature-title glow">{title}</h3>
       <p>{description}</p>
     </motion.div>
   </AnimatedSection>
@@ -92,34 +92,46 @@ const SynergyLandingPage = () => {
           </section>
         </AnimatedSection>
 
-        <AnimatedSection delay={0.3}>
-          <h1 className="section-title">Features</h1>
-          <div className="features">
-            <Feature
-              icon={TrendingUp}
-              title="Accelerate Growth"
-              description="Boost your potential through our combined expertise."
-              delay={0.1}
-            />
-            <Feature
-              icon={Users}
-              title="Collaborative Network"
-              description="Join a community of like-minded innovators."
-              delay={0.2}
-            />
-            <Feature
-              icon={Target}
-              title="Achieve Excellence"
-              description="Reach new heights in your professional journey."
-              delay={0.3}
-            />
+        {/* Switched About Us Section */}
+        <AnimatedSection delay={0.4}>
+          <div className="about-us">
+            <h2 className="glow">About Synergy</h2>
+            <p>
+              Synergy is a cutting-edge collective of innovators who believe in
+              the power of collaboration, shared knowledge, and continuous growth.
+              We strive to create an environment where ideas flourish and
+              innovations thrive.
+            </p>
+            <h3 className="glow">Our Core Values</h3>
+            <ul>
+              <li>
+                <Zap size={16} /> Innovation: We push the boundaries of what's
+                possible.
+              </li>
+              <li>
+                <TrendingUp size={16} /> Growth: We constantly evolve and adapt to
+                stay ahead.
+              </li>
+              <li>
+                <Users size={16} /> Collaboration: We believe in the power of
+                collective intelligence.
+              </li>
+              <li>
+                <Target size={16} /> Excellence: We strive for nothing less than the
+                best in all we do.
+              </li>
+            </ul>
+            <p>
+              Join Synergy and be part of a movement that's shaping the future of
+              innovation!
+            </p>
           </div>
         </AnimatedSection>
 
         <AnimatedSection delay={0.5}>
           <div className="application-form">
             <div className="form-header">
-              <h2 className="form-title">Membership Application</h2>
+              <h2 className="form-title glow">Membership Application</h2>
               <Zap size={24} />
             </div>
             <form action="https://formsubmit.co/ephriam123@gmail.com" method="POST">
@@ -188,38 +200,27 @@ const SynergyLandingPage = () => {
           </div>
         </AnimatedSection>
 
-        <AnimatedSection delay={0.6}>
-          <div className="about-us">
-            <h2>About Synergy</h2>
-            <p>
-              Synergy is a cutting-edge collective of innovators who believe in
-              the power of collaboration, shared knowledge, and continuous growth.
-              We strive to create an environment where ideas flourish and
-              innovations thrive.
-            </p>
-            <h3>Our Core Values</h3>
-            <ul>
-              <li>
-                <Zap size={16} /> Innovation: We push the boundaries of what's
-                possible.
-              </li>
-              <li>
-                <TrendingUp size={16} /> Growth: We constantly evolve and adapt to
-                stay ahead.
-              </li>
-              <li>
-                <Users size={16} /> Collaboration: We believe in the power of
-                collective intelligence.
-              </li>
-              <li>
-                <Target size={16} /> Excellence: We strive for nothing less than the
-                best in all we do.
-              </li>
-            </ul>
-            <p>
-              Join Synergy and be part of a movement that's shaping the future of
-              innovation!
-            </p>
+        <AnimatedSection delay={0.3}>
+          <h1 className="section-title glow">Features</h1>
+          <div className="features">
+            <Feature
+              icon={TrendingUp}
+              title="Accelerate Growth"
+              description="Boost your potential through our combined expertise."
+              delay={0.1}
+            />
+            <Feature
+              icon={Users}
+              title="Collaborative Network"
+              description="Join a community of like-minded innovators."
+              delay={0.2}
+            />
+            <Feature
+              icon={Target}
+              title="Achieve Excellence"
+              description="Reach new heights in your professional journey."
+              delay={0.3}
+            />
           </div>
         </AnimatedSection>
       </main>
@@ -238,7 +239,7 @@ function App() {
     }, 3000);
 
     const checkScreenSize = () => {
-      setIsLargeScreen(window.innerWidth >= 768);
+      setIsLargeScreen(window.innerWidth >= 480);
     };
 
     checkScreenSize();
