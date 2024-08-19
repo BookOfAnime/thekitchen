@@ -93,7 +93,7 @@ const SynergyLandingPage = () => {
         </AnimatedSection>
 
         {/* Switched About Us Section */}
-        <AnimatedSection delay={0.4}>
+        <AnimatedSection delay={0.2}>
           <div className="about-us">
             <h2 className="glow">About Synergy</h2>
             <p>
@@ -128,7 +128,31 @@ const SynergyLandingPage = () => {
           </div>
         </AnimatedSection>
 
-        <AnimatedSection delay={0.5}>
+        <AnimatedSection delay={0.3}>
+          <h1 className="section-title glow">Features</h1>
+          <div className="features">
+            <Feature
+              icon={TrendingUp}
+              title="Accelerate Growth"
+              description="Boost your potential through our combined expertise."
+              delay={0.1}
+            />
+            <Feature
+              icon={Users}
+              title="Collaborative Network"
+              description="Join a community of like-minded innovators."
+              delay={0.2}
+            />
+            <Feature
+              icon={Target}
+              title="Achieve Excellence"
+              description="Reach new heights in your professional journey."
+              delay={0.3}
+            />
+          </div>
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.2}>
           <div className="application-form">
             <div className="form-header">
               <h2 className="form-title glow">Membership Application</h2>
@@ -200,29 +224,7 @@ const SynergyLandingPage = () => {
           </div>
         </AnimatedSection>
 
-        <AnimatedSection delay={0.3}>
-          <h1 className="section-title glow">Features</h1>
-          <div className="features">
-            <Feature
-              icon={TrendingUp}
-              title="Accelerate Growth"
-              description="Boost your potential through our combined expertise."
-              delay={0.1}
-            />
-            <Feature
-              icon={Users}
-              title="Collaborative Network"
-              description="Join a community of like-minded innovators."
-              delay={0.2}
-            />
-            <Feature
-              icon={Target}
-              title="Achieve Excellence"
-              description="Reach new heights in your professional journey."
-              delay={0.3}
-            />
-          </div>
-        </AnimatedSection>
+        
       </main>
     </div>
   );
