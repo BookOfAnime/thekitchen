@@ -1,25 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import Spline from "@splinetool/react-spline";
 import { Zap, TrendingUp, Users, Target } from "lucide-react";
 import "./App.css";
 
-const LazyLoad = ({ children }) => {
-  const [isVisible, setIsVisible] = useState(false);
+const AnimatedSection = ({ children, delay = 0 }) => {
+  const controls = useAnimation();
   const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(ref.current);
+          controls.start("visible");
+          observer.unobserve(entry.target);
         }
       },
       {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0.1,
+        threshold: 0.1
       }
     );
 
@@ -32,38 +32,44 @@ const LazyLoad = ({ children }) => {
         observer.unobserve(ref.current);
       }
     };
-  }, []);
+  }, [controls]);
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5 }}
+      animate={controls}
+      initial="hidden"
+      transition={{ duration: 0.5, delay }}
+      variants={{
+        visible: { opacity: 1, y: 0 },
+        hidden: { opacity: 0, y: 20 }
+      }}
     >
-      {isVisible && children}
+      {children}
     </motion.div>
   );
 };
 
-const Feature = ({ icon: Icon, title, description }) => (
-  <LazyLoad>
+const Feature = ({ icon: Icon, title, description, delay }) => (
+  <AnimatedSection delay={delay}>
     <motion.div
       className="feature"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
-      <Icon size={24} />
-      <h3>{title}</h3>
+      <div className="feature-icon">
+        <Icon size={32} />
+      </div>
+      <h3 className="feature-title">{title}</h3>
       <p>{description}</p>
     </motion.div>
-  </LazyLoad>
+  </AnimatedSection>
 );
 
 const SynergyLandingPage = () => {
   return (
     <div className="synergy-landing-page">
-      <LazyLoad>
+      <AnimatedSection>
         <header className="header">
           <div className="logo">
             <Zap size={24} />
@@ -71,12 +77,12 @@ const SynergyLandingPage = () => {
           </div>
           <div className="applications-open">Applications Open</div>
         </header>
-      </LazyLoad>
+      </AnimatedSection>
 
       <main className="main-content">
-        <LazyLoad>
+        <AnimatedSection delay={0.2}>
           <section className="welcome-section">
-            <h1 className="title">
+            <h1 className="title glow">
               Welcome to Synergy <Zap size={32} />
             </h1>
             <p className="subtitle">
@@ -84,41 +90,40 @@ const SynergyLandingPage = () => {
               collaboration and shared vision.
             </p>
           </section>
-        </LazyLoad>
+        </AnimatedSection>
 
-        <div className="features">
-          <Feature
-            icon={TrendingUp}
-            title="Accelerate Growth"
-            description="Boost your potential through our combined expertise"
-          />
-          <Feature
-            icon={Users}
-            title="Collaborative Network"
-            description="Join a community of like-minded innovators"
-          />
-          <Feature
-            icon={Target}
-            title="Achieve Excellence"
-            description="Reach new heights in your professional journey"
-          />
-        </div>
-
-        <LazyLoad>
-          <div className="private-alpha-group">
-            ELITE INNOVATION HUB
+        <AnimatedSection delay={0.3}>
+          <h1 className="section-title">Features</h1>
+          <div className="features">
+            <Feature
+              icon={TrendingUp}
+              title="Accelerate Growth"
+              description="Boost your potential through our combined expertise."
+              delay={0.1}
+            />
+            <Feature
+              icon={Users}
+              title="Collaborative Network"
+              description="Join a community of like-minded innovators."
+              delay={0.2}
+            />
+            <Feature
+              icon={Target}
+              title="Achieve Excellence"
+              description="Reach new heights in your professional journey."
+              delay={0.3}
+            />
           </div>
-        </LazyLoad>
+        </AnimatedSection>
 
-        <LazyLoad>
+        <AnimatedSection delay={0.5}>
           <div className="application-form">
             <div className="form-header">
               <h2 className="form-title">Membership Application</h2>
               <Zap size={24} />
             </div>
-            <form action="https://formsubmit.co/ephriam123@gmail.com" method="POST" >
-
-<div className="form-grid">
+            <form action="https://formsubmit.co/ephriam123@gmail.com" method="POST">
+              <div className="form-grid">
                 <div className="form-field">
                   <label htmlFor="name">Full Name</label>
                   <input
@@ -181,48 +186,44 @@ const SynergyLandingPage = () => {
               </motion.button>
             </form>
           </div>
-        </LazyLoad>
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.6}>
+          <div className="about-us">
+            <h2>About Synergy</h2>
+            <p>
+              Synergy is a cutting-edge collective of innovators who believe in
+              the power of collaboration, shared knowledge, and continuous growth.
+              We strive to create an environment where ideas flourish and
+              innovations thrive.
+            </p>
+            <h3>Our Core Values</h3>
+            <ul>
+              <li>
+                <Zap size={16} /> Innovation: We push the boundaries of what's
+                possible.
+              </li>
+              <li>
+                <TrendingUp size={16} /> Growth: We constantly evolve and adapt to
+                stay ahead.
+              </li>
+              <li>
+                <Users size={16} /> Collaboration: We believe in the power of
+                collective intelligence.
+              </li>
+              <li>
+                <Target size={16} /> Excellence: We strive for nothing less than the
+                best in all we do.
+              </li>
+            </ul>
+            <p>
+              Join Synergy and be part of a movement that's shaping the future of
+              innovation!
+            </p>
+          </div>
+        </AnimatedSection>
       </main>
     </div>
-  );
-};
-
-const AboutUs = () => {
-  return (
-    <LazyLoad>
-      <div className="about-us">
-        <h2>About Synergy</h2>
-        <p>
-          Synergy is a cutting-edge collective of innovators who believe in the
-          power of collaboration, shared knowledge, and continuous growth. We
-          strive to create an environment where ideas flourish and innovations
-          thrive.
-        </p>
-        <h3>Our Core Values</h3>
-        <ul>
-          <li>
-            <Zap size={16} /> Innovation: We push the boundaries of what's
-            possible.
-          </li>
-          <li>
-            <TrendingUp size={16} /> Growth: We constantly evolve and adapt to
-            stay ahead.
-          </li>
-          <li>
-            <Users size={16} /> Collaboration: We believe in the power of
-            collective intelligence.
-          </li>
-          <li>
-            <Target size={16} /> Excellence: We strive for nothing less than the
-            best in all we do.
-          </li>
-        </ul>
-        <p>
-          Join Synergy and be part of a movement that's shaping the future of
-          innovation!
-        </p>
-      </div>
-    </LazyLoad>
   );
 };
 
@@ -297,7 +298,6 @@ function App() {
             transition={{ duration: 1 }}
           >
             <SynergyLandingPage />
-            <AboutUs />
           </motion.div>
         )}
       </AnimatePresence>
