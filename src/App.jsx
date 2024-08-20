@@ -69,51 +69,46 @@ const StarryBackground = () => {
   return <canvas ref={canvasRef} className="starry-background" />;
 };
 
-const AnimatedText = ({ text }) => {
-  const letters = Array.from(text);
-
-  const container = {
-    hidden: { opacity: 0 },
-    visible: (i = 1) => ({
-      opacity: 1,
-      transition: { staggerChildren: 0.03, delayChildren: 0.04 * i },
-    }),
-  };
-
-  const child = {
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 200,
-      },
-    },
-    hidden: {
-      opacity: 0,
-      y: 20,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 200,
-      },
-    },
-  };
+const SynergyText = () => {
+  const letters = "Synergy".split("");
 
   return (
-    <motion.h1
-      className="animated-text"
-      variants={container}
-      initial="hidden"
-      animate="visible"
-    >
+    <motion.div className="synergy-text-container">
       {letters.map((letter, index) => (
-        <motion.span key={index} variants={child}>
-          {letter === " " ? "\u00A0" : letter}
+        <motion.span
+          key={index}
+          className="synergy-letter"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            delay: index * 0.1,
+            type: "spring",
+            stiffness: 100,
+          }}
+        >
+          {letter}
         </motion.span>
       ))}
-    </motion.h1>
+    </motion.div>
+  );
+};
+
+const EnergySpark = () => {
+  return (
+    <motion.div
+      className="energy-spark"
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{
+        scale: [0, 1.2, 1],
+        opacity: [0, 1, 0],
+      }}
+      transition={{
+        duration: 2,
+        repeat: Infinity,
+        repeatType: "loop",
+      }}
+    />
   );
 };
 
@@ -313,7 +308,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowButton(true);
-    }, 3000);
+    }, 4000); // Increased delay to allow for text animation
 
     return () => clearTimeout(timer);
   }, []);
@@ -334,7 +329,8 @@ function App() {
             transition={{ duration: 0.5 }}
           >
             <StarryBackground />
-            <AnimatedText text="Synergy" />
+            <SynergyText />
+            <EnergySpark />
             {showButton && (
               <motion.button
                 className="explore-button"

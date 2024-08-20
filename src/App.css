@@ -66,12 +66,29 @@ body {
   background-color: #000000;
 }
 
-.animated-text {
+.synergy-text-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.synergy-letter {
   font-family: var(--heading-font);
   font-size: clamp(4rem, 15vw, 12rem);
   color: var(--text-color);
   text-shadow: 0 0 20px rgba(182, 27, 203, 0.5);
-  margin-bottom: 2rem;
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.energy-spark {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(182,27,203,1) 0%, rgba(182,27,203,0) 70%);
+  border-radius: 50%;
+  z-index: -1;
 }
 
 .explore-button {
@@ -102,8 +119,7 @@ body {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  
-  background: url('/galaxy.jpeg') no-repeat ;
+  background: url('/galaxy.jpeg') no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -160,7 +176,8 @@ body {
 
 .welcome-section {
   text-align: center;
-  padding: 4rem 0;
+  padding: 6rem 0;  /* Increased padding */
+  margin-bottom: 4rem;  /* Added margin */
 }
 
 .title {
@@ -205,7 +222,8 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  padding: 4rem 0;
+  padding: 6rem 0;  /* Increased padding */
+  margin-bottom: 4rem;  /* Added margin */
 }
 
 .feature {
@@ -246,8 +264,8 @@ body {
 
 .about-us {
   max-width: 1000px;
-  margin: 0 auto;
-  padding: 3rem;
+  margin: 0 auto 4rem auto;  /* Added bottom margin */
+  padding: 4rem;  /* Increased padding */
   backdrop-filter: blur(5px);
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -295,7 +313,7 @@ body {
 .application-form {
   max-width: 800px;
   margin: 0 auto;
-  padding: 3rem;
+  padding: 4rem;  /* Increased padding */
   backdrop-filter: blur(5px);
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -390,10 +408,10 @@ textarea {
     padding: 1rem;
   }
 
-  .site-content{
+  .site-content {
     background: url('/galaxy.jpeg') center;
-
   }
+
   .features {
     grid-template-columns: 1fr;
   }
@@ -406,6 +424,18 @@ textarea {
   .about-us {
     padding: 2rem;
   }
+
+  .synergy-letter {
+    font-size: clamp(3rem, 10vw, 8rem);
+  }
+
+  .welcome-section,
+  .features,
+  .about-us,
+  .application-form {
+    padding: 3rem 0;  /* Reduced padding for mobile */
+    margin-bottom: 2rem;  /* Reduced margin for mobile */
+  }
 }
 
 @media (max-width: 480px) {
@@ -417,13 +447,21 @@ textarea {
     padding: 1rem;
   }
 
-  .animated-text {
-    font-size: clamp(3rem, 12vw, 8rem);
+  .synergy-letter {
+    font-size: clamp(2rem, 8vw, 6rem);
   }
 
   .explore-button {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
+  }
+
+  .welcome-section,
+  .features,
+  .about-us,
+  .application-form {
+    padding: 2rem 0;  /* Further reduced padding for smaller screens */
+    margin-bottom: 1.5rem;  /* Further reduced margin for smaller screens */
   }
 }
 
@@ -479,4 +517,49 @@ button {
 /* Ensure proper spacing for inline SVG icons */
 svg {
   vertical-align: -0.125em;
+}
+
+/* Add more space between main sections */
+.main-content > * {
+  margin-bottom: 8rem;  /* Increased spacing between main sections */
+}
+
+.main-content > *:last-child {
+  margin-bottom: 0;  /* Remove margin from the last element */
+}
+
+/* Adjust spacing for nested sections */
+.features,
+.about-us,
+.application-form {
+  margin-bottom: 0;  /* Remove individual margins */
+}
+
+/* Add a divider between sections for visual separation */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--text-color), transparent);
+  margin: 6rem 0;  /* Increased margin */
+  opacity: 0.5;
+}
+
+/* Responsive adjustments for section spacing */
+@media (max-width: 768px) {
+  .main-content > * {
+    margin-bottom: 6rem;  /* Slightly reduced spacing for tablets */
+  }
+
+  .section-divider {
+    margin: 4rem 0;  /* Reduced margin for tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content > * {
+    margin-bottom: 4rem;  /* Further reduced spacing for mobile */
+  }
+
+  .section-divider {
+    margin: 3rem 0;  /* Further reduced margin for mobile */
+  }
 }
