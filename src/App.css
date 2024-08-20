@@ -35,6 +35,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
 }
 
 .app-container {
@@ -63,11 +64,11 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 1;
-  background-color: #000000;
+  background-color: var(--background-color);
 }
 
 .synergy-text-container {
-  position: relative;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,27 +93,102 @@ body {
 }
 
 .explore-button {
+  position: relative;
   padding: 1rem 2.5rem;
   font-size: 1.2rem;
   font-weight: 600;
-  color: white;
-  background: linear-gradient(135deg, rgba(233, 69, 96, 1) 0%, rgba(225, 63, 225, 1) 100%);
+  color: #ffffff;
+  background: radial-gradient(circle at center, #8a2be2, #4b0082);
   border: none;
-  border-radius: 3rem;
+  border-radius: 50px;
   cursor: pointer;
-  transition: all 0.3s ease;
   font-family: var(--heading-font);
-  position: relative;
-  overflow: hidden;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  box-shadow: 0 5px 15px rgba(225, 63, 225, 0.4);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin-top: 30rem;
+}
+
+.explore-button::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+  z-index: -1;
+  filter: blur(5px);
+  background-size: 400%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.explore-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, transparent 30%, rgba(255,255,255,0.1) 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .explore-button:hover {
-  transform: translateY(-5px);
-  background: linear-gradient(135deg, rgba(255, 69, 150, 1) 0%, rgba(225, 63, 255, 1) 100%);
-  box-shadow: 0 8px 20px rgba(225, 63, 225, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.7);
+}
+
+.explore-button:hover::before {
+  opacity: 1;
+  animation: glowing 5s linear infinite;
+}
+
+.explore-button:hover::after {
+  opacity: 1;
+}
+
+@keyframes glowing {
+  0% { background-position: 0 0; }
+  50% { background-position: 400% 0; }
+  100% { background-position: 0 0; }
+}
+
+.explore-button-text {
+  position: relative;
+  z-index: 2;
+}
+
+.explore-button-stars {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 20s linear;
+}
+
+.explore-button:hover .explore-button-stars {
+  opacity: 0.5;
+  transform: translate(-50%, -50%) rotate(360deg);
+}
+
+.explore-button-star {
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 50%;
+  animation: twinkle 1s infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.3; }
+  100% { opacity: 1; }
 }
 
 .site-content {
@@ -176,8 +252,8 @@ body {
 
 .welcome-section {
   text-align: center;
-  padding: 6rem 0;  /* Increased padding */
-  margin-bottom: 4rem;  /* Added margin */
+  padding: 6rem 0;
+  margin-bottom: 4rem;
 }
 
 .title {
@@ -222,8 +298,8 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  padding: 6rem 0;  /* Increased padding */
-  margin-bottom: 4rem;  /* Added margin */
+  padding: 6rem 0;
+  margin-bottom: 4rem;
 }
 
 .feature {
@@ -264,8 +340,8 @@ body {
 
 .about-us {
   max-width: 1000px;
-  margin: 0 auto 4rem auto;  /* Added bottom margin */
-  padding: 4rem;  /* Increased padding */
+  margin: 0 auto 4rem auto;
+  padding: 4rem;
   backdrop-filter: blur(5px);
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -283,7 +359,7 @@ body {
   font-size: 2rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  color: var(--text-color);
+  color: var (--text-color);
   font-family: var(--heading-font);
 }
 
@@ -313,7 +389,7 @@ body {
 .application-form {
   max-width: 800px;
   margin: 0 auto;
-  padding: 4rem;  /* Increased padding */
+  padding: 4rem;
   backdrop-filter: blur(5px);
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -393,6 +469,29 @@ textarea {
   max-width: 300px;
 }
 
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--text-color), transparent);
+  margin: 6rem 0;
+  opacity: 0.5;
+}
+
+/* Add more space between main sections */
+.main-content > * {
+  margin-bottom: 8rem;
+}
+
+.main-content > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Adjust spacing for nested sections */
+.features,
+.about-us,
+.application-form {
+  margin-bottom: 0;
+}
+
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
@@ -433,8 +532,16 @@ textarea {
   .features,
   .about-us,
   .application-form {
-    padding: 3rem 0;  /* Reduced padding for mobile */
-    margin-bottom: 2rem;  /* Reduced margin for mobile */
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+  }
+
+  .main-content > * {
+    margin-bottom: 6rem;
+  }
+
+  .section-divider {
+    margin: 4rem 0;
   }
 }
 
@@ -460,34 +567,22 @@ textarea {
   .features,
   .about-us,
   .application-form {
-    padding: 2rem 0;  /* Further reduced padding for smaller screens */
-    margin-bottom: 1.5rem;  /* Further reduced margin for smaller screens */
+    padding: 2rem 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .main-content > * {
+    margin-bottom: 4rem;
+  }
+
+  .section-divider {
+    margin: 3rem 0;
   }
 }
 
 /* Ensure proper contrast for text elements */
 .title, .subtitle, h2, h3, p, li, label {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-}
-
-/* Improve accessibility for screen readers */
-.visually-hidden {
-  position: absolute !important;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  clip: rect(1px 1px 1px 1px);
-  clip: rect(1px, 1px, 1px, 1px);
-  white-space: nowrap;
-}
-
-/* Ensure proper contrast for form inputs */
-input[type="text"],
-input[type="email"],
-input[type="number"],
-textarea {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--light-text-color);
 }
 
 /* Improve focus styles for better accessibility */
@@ -498,68 +593,7 @@ button:focus {
   outline-offset: 2px;
 }
 
-/* Ensure proper text wrapping in buttons */
-button {
-  white-space: normal;
-  word-wrap: break-word;
-}
-
 /* Add smooth transitions for color changes */
 * {
   transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-/* Optimize for high-resolution displays */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* Add any high-resolution specific styles here if needed */
-}
-
-/* Ensure proper spacing for inline SVG icons */
-svg {
-  vertical-align: -0.125em;
-}
-
-/* Add more space between main sections */
-.main-content > * {
-  margin-bottom: 8rem;  /* Increased spacing between main sections */
-}
-
-.main-content > *:last-child {
-  margin-bottom: 0;  /* Remove margin from the last element */
-}
-
-/* Adjust spacing for nested sections */
-.features,
-.about-us,
-.application-form {
-  margin-bottom: 0;  /* Remove individual margins */
-}
-
-/* Add a divider between sections for visual separation */
-.section-divider {
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--text-color), transparent);
-  margin: 6rem 0;  /* Increased margin */
-  opacity: 0.5;
-}
-
-/* Responsive adjustments for section spacing */
-@media (max-width: 768px) {
-  .main-content > * {
-    margin-bottom: 6rem;  /* Slightly reduced spacing for tablets */
-  }
-
-  .section-divider {
-    margin: 4rem 0;  /* Reduced margin for tablets */
-  }
-}
-
-@media (max-width: 480px) {
-  .main-content > * {
-    margin-bottom: 4rem;  /* Further reduced spacing for mobile */
-  }
-
-  .section-divider {
-    margin: 3rem 0;  /* Further reduced margin for mobile */
-  }
 }

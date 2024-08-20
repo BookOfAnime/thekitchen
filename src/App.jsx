@@ -1,7 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Zap, TrendingUp, Users, Target } from "lucide-react";
 import "./App.css";
+
+// Lazy loading component that animates elements on scroll
+const LazyLoadComponent = ({ children, delay = 0 }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  return (
+    <motion.div
+      ref={ref}
+      className={isInView ? "animate-visible" : "animate-in"}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+      transition={{ duration: 0.8, delay }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 const StarryBackground = () => {
   const canvasRef = useRef(null);
@@ -112,20 +130,8 @@ const EnergySpark = () => {
   );
 };
 
-const AnimatedSection = ({ children, delay = 0 }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
-    >
-      {children}
-    </motion.div>
-  );
-};
-
 const Feature = ({ icon: Icon, title, description, delay }) => (
-  <AnimatedSection delay={delay}>
+  <LazyLoadComponent delay={delay}>
     <motion.div
       className="feature"
       whileHover={{ scale: 1.05 }}
@@ -137,13 +143,13 @@ const Feature = ({ icon: Icon, title, description, delay }) => (
       <h3 className="feature-title glow">{title}</h3>
       <p>{description}</p>
     </motion.div>
-  </AnimatedSection>
+  </LazyLoadComponent>
 );
 
 const SynergyLandingPage = () => {
   return (
     <div className="synergy-landing-page">
-      <AnimatedSection>
+      <LazyLoadComponent>
         <header className="header">
           <div className="logo">
             <Zap size={24} />
@@ -151,10 +157,10 @@ const SynergyLandingPage = () => {
           </div>
           <div className="applications-open">Applications Open</div>
         </header>
-      </AnimatedSection>
+      </LazyLoadComponent>
 
       <main className="main-content">
-        <AnimatedSection delay={0.2}>
+        <LazyLoadComponent delay={0.2}>
           <section className="welcome-section">
             <h1 className="title glow">
               Welcome to Synergy <Zap size={32} />
@@ -164,9 +170,9 @@ const SynergyLandingPage = () => {
               collaboration and shared vision.
             </p>
           </section>
-        </AnimatedSection>
+        </LazyLoadComponent>
 
-        <AnimatedSection delay={0.2}>
+        <LazyLoadComponent delay={0.2}>
           <div className="about-us">
             <h2 className="glow">About Synergy</h2>
             <p>
@@ -199,9 +205,9 @@ const SynergyLandingPage = () => {
               innovation!
             </p>
           </div>
-        </AnimatedSection>
+        </LazyLoadComponent>
 
-        <AnimatedSection delay={0.3}>
+        <LazyLoadComponent delay={0.3}>
           <h1 className="section-title glow">Features</h1>
           <div className="features">
             <Feature
@@ -223,9 +229,9 @@ const SynergyLandingPage = () => {
               delay={0.3}
             />
           </div>
-        </AnimatedSection>
+        </LazyLoadComponent>
 
-        <AnimatedSection delay={0.2}>
+        <LazyLoadComponent delay={0.2}>
           <div className="application-form">
             <div className="form-header">
               <h2 className="form-title glow">Membership Application</h2>
@@ -295,7 +301,7 @@ const SynergyLandingPage = () => {
               </motion.button>
             </form>
           </div>
-        </AnimatedSection>
+        </LazyLoadComponent>
       </main>
     </div>
   );
