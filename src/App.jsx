@@ -26,7 +26,7 @@ const StarryBackground = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     let animationFrameId;
 
     const resizeCanvas = () => {
@@ -42,15 +42,15 @@ const StarryBackground = () => {
           y: Math.random() * canvas.height,
           radius: Math.random() * 1.5,
           vx: Math.floor(Math.random() * 50) - 25,
-          vy: Math.floor(Math.random() * 50) - 25
+          vy: Math.floor(Math.random() * 50) - 25,
         });
       }
     };
 
     const drawStars = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'white';
-      stars.forEach(star => {
+      ctx.fillStyle = "white";
+      stars.forEach((star) => {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2, false);
         ctx.fill();
@@ -58,7 +58,7 @@ const StarryBackground = () => {
     };
 
     const moveStars = () => {
-      stars.forEach(star => {
+      stars.forEach((star) => {
         star.x += star.vx / 30;
         star.y += star.vy / 30;
         if (star.x < 0 || star.x > canvas.width) star.vx = -star.vx;
@@ -76,10 +76,10 @@ const StarryBackground = () => {
     generateStars();
     animate();
 
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener("resize", resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -149,7 +149,7 @@ const Feature = ({ icon: Icon, title, description, delay }) => (
 const SynergyLandingPage = () => {
   return (
     <div className="synergy-landing-page">
-      <LazyLoadComponent>
+
         <header className="header">
           <div className="logo">
             <Zap size={24} />
@@ -157,7 +157,7 @@ const SynergyLandingPage = () => {
           </div>
           <div className="applications-open">Applications Open</div>
         </header>
-      </LazyLoadComponent>
+     
 
       <main className="main-content">
         <LazyLoadComponent delay={0.2}>
@@ -314,7 +314,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowButton(true);
-    }, 4000); // Increased delay to allow for text animation
+    }, 3000); // Reduced delay to make the button appear sooner
 
     return () => clearTimeout(timer);
   }, []);
@@ -332,7 +332,7 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8 }} // Softened the fade-out animation
           >
             <StarryBackground />
             <SynergyText />
@@ -345,21 +345,22 @@ function App() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <span className="button-text">Join Us</span>
+                <span className="button-text">Explore</span>
                 <span className="button-glow"></span>
               </motion.button>
             )}
           </motion.div>
         )}
       </AnimatePresence>
+
       <AnimatePresence>
         {enterSite && (
           <motion.div
-            className="site-content"
+            className="site-content site-content-active"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 1 }} // Smooth transition between pages
           >
             <SynergyLandingPage />
           </motion.div>

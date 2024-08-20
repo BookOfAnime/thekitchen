@@ -253,6 +253,7 @@ body {
 .welcome-section {
   text-align: center;
   padding: 6rem 0;
+  
   margin-bottom: 4rem;
 }
 
@@ -525,7 +526,8 @@ textarea {
   }
 
   .synergy-letter {
-    font-size: clamp(3rem, 10vw, 8rem);
+    font-size: clamp(3
+    rem, 10vw, 8rem);
   }
 
   .welcome-section,
@@ -549,6 +551,71 @@ textarea {
   html {
     font-size: 14px;
   }
+  .welcome-section {
+    height: 70vh;
+    margin-top: 10rem;
+    text-align: center;
+    vertical-align: center  ;
+  }
+  .features {
+    height: 100vh;
+  }
+
+.about-us {
+  max-width: 1000px;
+  margin: 0 auto 4rem auto;
+  padding: 4rem;
+  backdrop-filter: blur(5px);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 100vh;
+}
+
+.about-us h2 {
+  font-size: 2.3rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  font-family: var(--heading-font);
+  text-shadow: 0 0 10px rgba(182, 27, 203, 0.5);
+  text-align: center;
+}
+
+.about-us h3 {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var (--text-color);
+  font-family: var(--heading-font);
+}
+
+.about-us p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 5px;
+}
+
+.about-us ul {
+  list-style-type: none;
+  padding: 5px;
+}
+
+.about-us li {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  padding: 5px;
+
+}
+
+.about-us li svg {
+  margin-right: 1rem;
+  color: var(--text-color);
+  flex-shrink: 0;
+}
+
 
   .header {
     padding: 1rem;
@@ -557,12 +624,23 @@ textarea {
   .synergy-letter {
     font-size: clamp(2rem, 8vw, 6rem);
   }
-
+  .form-title {
+    text-align: center;
+    padding: 5px;
+  }
+  .application-form {
+    text-align: center;
+  }
   .explore-button {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
   }
-
+  .form-grid{
+    padding: 10px;
+  }
+  .about-us{
+    padding: 100px;
+  }
   .welcome-section,
   .features,
   .about-us,
@@ -578,6 +656,15 @@ textarea {
   .section-divider {
     margin: 3rem 0;
   }
+
+  .synergy-letter {
+    font-size:5rem
+  }
+
+  .form-field {
+    padding: 10px;
+  }
+
 }
 
 /* Ensure proper contrast for text elements */
