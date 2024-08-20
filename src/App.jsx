@@ -1,49 +1,128 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useAnimation } from "framer-motion";
-import Spline from "@splinetool/react-spline";
+import { motion, AnimatePresence } from "framer-motion";
 import { Zap, TrendingUp, Users, Target } from "lucide-react";
 import "./App.css";
 
-const AnimatedSection = ({ children, delay = 0 }) => {
-  const controls = useAnimation();
-  const ref = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+const StarryBackground = () => {
+  const canvasRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          controls.start("visible");
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 0.1
-      }
-    );
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
 
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+    const stars = [];
+    const generateStars = () => {
+      for (let i = 0; i < 200; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5,
+          vx: Math.floor(Math.random() * 50) - 25,
+          vy: Math.floor(Math.random() * 50) - 25
+        });
       }
     };
-  }, [controls]);
+
+    const drawStars = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'white';
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2, false);
+        ctx.fill();
+      });
+    };
+
+    const moveStars = () => {
+      stars.forEach(star => {
+        star.x += star.vx / 30;
+        star.y += star.vy / 30;
+        if (star.x < 0 || star.x > canvas.width) star.vx = -star.vx;
+        if (star.y < 0 || star.y > canvas.height) star.vy = -star.vy;
+      });
+    };
+
+    const animate = () => {
+      moveStars();
+      drawStars();
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    resizeCanvas();
+    generateStars();
+    animate();
+
+    window.addEventListener('resize', resizeCanvas);
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="starry-background" />;
+};
+
+const AnimatedText = ({ text }) => {
+  const letters = Array.from(text);
+
+  const container = {
+    hidden: { opacity: 0 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: 0.03, delayChildren: 0.04 * i },
+    }),
+  };
+
+  const child = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 200,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: 20,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 200,
+      },
+    },
+  };
 
   return (
-    <motion.div
-      ref={ref}
-      animate={controls}
+    <motion.h1
+      className="animated-text"
+      variants={container}
       initial="hidden"
+      animate="visible"
+    >
+      {letters.map((letter, index) => (
+        <motion.span key={index} variants={child}>
+          {letter === " " ? "\u00A0" : letter}
+        </motion.span>
+      ))}
+    </motion.h1>
+  );
+};
+
+const AnimatedSection = ({ children, delay = 0 }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
-      variants={{
-        visible: { opacity: 1, y: 0 },
-        hidden: { opacity: 0, y: 20 }
-      }}
     >
       {children}
     </motion.div>
@@ -92,7 +171,6 @@ const SynergyLandingPage = () => {
           </section>
         </AnimatedSection>
 
-        {/* Switched About Us Section */}
         <AnimatedSection delay={0.2}>
           <div className="about-us">
             <h2 className="glow">About Synergy</h2>
@@ -223,8 +301,6 @@ const SynergyLandingPage = () => {
             </form>
           </div>
         </AnimatedSection>
-
-        
       </main>
     </div>
   );
@@ -233,24 +309,13 @@ const SynergyLandingPage = () => {
 function App() {
   const [showButton, setShowButton] = useState(false);
   const [enterSite, setEnterSite] = useState(false);
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowButton(true);
     }, 3000);
 
-    const checkScreenSize = () => {
-      setIsLargeScreen(window.innerWidth >= 480);
-    };
-
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', checkScreenSize);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   const handleEnter = () => {
@@ -259,35 +324,29 @@ function App() {
 
   return (
     <div className="app-container">
-      {isLargeScreen && (
-        <div className="spline-background">
-          <Spline
-            className="s"
-            scene="https://prod.spline.design/vrrnxlXkYvdoZTNu/scene.splinecode"
-          />
-        </div>
-      )}
       <AnimatePresence>
-        {!enterSite && showButton && (
+        {!enterSite && (
           <motion.div
-            className="explore-button-container"
+            className="intro-container"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <motion.button
-              className="explore-button"
-              onClick={handleEnter}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)",
-              }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="button-text">Join Us</span>
-              <span className="button-glow"></span>
-            </motion.button>
+            <StarryBackground />
+            <AnimatedText text="Synergy" />
+            {showButton && (
+              <motion.button
+                className="explore-button"
+                onClick={handleEnter}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                <span className="button-text">Join Us</span>
+                <span className="button-glow"></span>
+              </motion.button>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
