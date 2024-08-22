@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { Zap, TrendingUp, Users, Target } from "lucide-react";
+import { TrendingUp, Users, Target } from "lucide-react";
 import "./App.css";
 
 // Lazy loading component that animates elements on scroll
@@ -11,7 +11,6 @@ const LazyLoadComponent = ({ children, delay = 0 }) => {
   return (
     <motion.div
       ref={ref}
-      className={isInView ? "animate-visible" : "animate-in"}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
       transition={{ duration: 0.8, delay }}
@@ -146,25 +145,25 @@ const Feature = ({ icon: Icon, title, description, delay }) => (
   </LazyLoadComponent>
 );
 
+const SynergyLogo = () => (
+  <img src="/logo.svg" alt="Synergy Logo" className="synergy-logo" />
+);
+
 const SynergyLandingPage = () => {
   return (
     <div className="synergy-landing-page">
-
-        <header className="header">
-          <div className="logo">
-            <Zap size={24} />
-            <span>Synergy</span>
-          </div>
-          <div className="applications-open">Applications Open</div>
-        </header>
-     
+      <header className="header">
+        <div className="logo">
+          <SynergyLogo />
+          <span>Synergy</span>
+        </div>
+        <div className="applications-open">Applications Open</div>
+      </header>
 
       <main className="main-content">
         <LazyLoadComponent delay={0.2}>
           <section className="welcome-section">
-            <h1 className="title glow">
-              Welcome to Synergy <Zap size={32} />
-            </h1>
+            <h1 className="title glow">Welcome to Synergy</h1>
             <p className="subtitle">
               We are a collective of innovators inspired by the power of
               collaboration and shared vision.
@@ -184,7 +183,7 @@ const SynergyLandingPage = () => {
             <h3 className="glow">Our Core Values</h3>
             <ul>
               <li>
-                <Zap size={16} /> Innovation: We push the boundaries of what's
+                <SynergyLogo /> Innovation: We push the boundaries of what's
                 possible.
               </li>
               <li>
@@ -235,7 +234,7 @@ const SynergyLandingPage = () => {
           <div className="application-form">
             <div className="form-header">
               <h2 className="form-title glow">Membership Application</h2>
-              <Zap size={24} />
+              <SynergyLogo />
             </div>
             <form action="https://formsubmit.co/ephriam123@gmail.com" method="POST">
               <div className="form-grid">
@@ -314,7 +313,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowButton(true);
-    }, 3000); // Reduced delay to make the button appear sooner
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -332,7 +331,7 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }} // Softened the fade-out animation
+            transition={{ duration: 0.8 }}
           >
             <StarryBackground />
             <SynergyText />
@@ -360,7 +359,7 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1 }} // Smooth transition between pages
+            transition={{ duration: 1 }}
           >
             <SynergyLandingPage />
           </motion.div>
