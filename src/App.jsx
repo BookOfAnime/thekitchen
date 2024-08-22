@@ -150,6 +150,25 @@ const SynergyLogo = () => (
 );
 
 const SynergyLandingPage = () => {
+
+
+
+  const formRef = useRef(null);
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch("YOUR_GOOGLE_SCRIPT_URL", {
+      method: 'POST',
+      body: new FormData(formRef.current),
+    }).then(res => res.json())
+      .then(data => {
+        console.log(data);
+        alert(data.msg);
+      })
+      .catch(err => console.log(err));
+  }
   return (
     <div className="synergy-landing-page">
       <div className="background-overlay"></div>
@@ -238,7 +257,7 @@ const SynergyLandingPage = () => {
                 <h2 className="form-title glow">Membership Application</h2>
                 <SynergyLogo />
               </div>
-              <form action="https://formsubmit.co/ephriam123@gmail.com" method="POST">
+              <form action="https://getform.io/f/bejynvya" method="POST" >
                 <div className="form-grid">
                   <div className="form-field">
                     <label htmlFor="name">Full Name</label>
@@ -324,6 +343,8 @@ function App() {
   const handleEnter = () => {
     setEnterSite(true);
   };
+
+
 
   return (
     <div className="app-container">
