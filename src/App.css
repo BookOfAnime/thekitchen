@@ -91,6 +91,7 @@ body {
   border-radius: 50%;
   z-index: -1;
 }
+
 .explore-button {
   position: relative;
   padding: 1rem 2.5rem;
@@ -230,12 +231,6 @@ body {
   font-weight: 700;
   color: var(--text-color);
   text-shadow: 0 0 10px rgba(182, 27, 203, 0.5);
-}
-
-.synergy-logo {
-  width: 24px;
-  height: 24px;
-  vertical-align: middle;
 }
 
 .applications-open {
@@ -386,13 +381,6 @@ body {
   font-size: 1.1rem;
 }
 
-.about-us li .synergy-logo {
-  margin-right: 1rem;
-  width: 200px;
-  height: 200px;
-
-}
-
 .about-us li svg {
   margin-right: 1rem;
   color: var(--text-color);
@@ -481,7 +469,6 @@ textarea {
   width: 100%;
   max-width: 300px;
 }
-
 .section-divider {
   height: 1px;
   background: linear-gradient(to right, transparent, var(--text-color), transparent);
@@ -521,6 +508,13 @@ textarea {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-color);
+}
+
+/* Synergy Logo styling */
+.synergy-logo {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
 }
 
 @media (max-width: 768px) {
@@ -586,6 +580,11 @@ textarea {
     height: 100vh;
   }
 
+  .site-content{
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('/galaxy.jpeg')  center;
+
+  }
+
   .about-us {
     max-width: 1000px;
     margin: 0 auto 4rem auto;
@@ -642,6 +641,11 @@ textarea {
 
   .header {
     padding: 1rem;
+    display: flex;
+    flex-direction: row;
+  }
+  .header-title {
+    margin-top: 10px;
   }
 
   .synergy-letter {
@@ -668,7 +672,7 @@ textarea {
   .features,
   .about-us,
   .application-form {
-    padding: 2rem 0;
+    padding: 2rem 1rem;
     margin-bottom: 1.5rem;
   }
 

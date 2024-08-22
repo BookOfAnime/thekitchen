@@ -152,156 +152,159 @@ const SynergyLogo = () => (
 const SynergyLandingPage = () => {
   return (
     <div className="synergy-landing-page">
-      <header className="header">
-        <div className="logo">
-          <SynergyLogo />
-          <span>Synergy</span>
-        </div>
-        <div className="applications-open">Applications Open</div>
-      </header>
-
-      <main className="main-content">
-        <LazyLoadComponent delay={0.2}>
-          <section className="welcome-section">
-            <h1 className="title glow">Welcome to Synergy</h1>
-            <p className="subtitle">
-              We are a collective of innovators inspired by the power of
-              collaboration and shared vision.
-            </p>
-          </section>
-        </LazyLoadComponent>
-
-        <LazyLoadComponent delay={0.2}>
-          <div className="about-us">
-            <h2 className="glow">About Synergy</h2>
-            <p>
-              Synergy is a cutting-edge collective of innovators who believe in
-              the power of collaboration, shared knowledge, and continuous growth.
-              We strive to create an environment where ideas flourish and
-              innovations thrive.
-            </p>
-            <h3 className="glow">Our Core Values</h3>
-            <ul>
-              <li>
-                <SynergyLogo /> Innovation: We push the boundaries of what's
-                possible.
-              </li>
-              <li>
-                <TrendingUp size={16} /> Growth: We constantly evolve and adapt to
-                stay ahead.
-              </li>
-              <li>
-                <Users size={16} /> Collaboration: We believe in the power of
-                collective intelligence.
-              </li>
-              <li>
-                <Target size={16} /> Excellence: We strive for nothing less than the
-                best in all we do.
-              </li>
-            </ul>
-            <p>
-              Join Synergy and be part of a movement that's shaping the future of
-              innovation!
-            </p>
+      <div className="background-overlay"></div>
+      <div className="content-wrapper">
+        <header className="header">
+          <div className="logo">
+            <SynergyLogo />
+            <span className="header-title">Synergy</span>
           </div>
-        </LazyLoadComponent>
+          <div className="applications-open">Applications Open</div>
+        </header>
 
-        <LazyLoadComponent delay={0.3}>
-          <h1 className="section-title glow">Features</h1>
-          <div className="features">
-            <Feature
-              icon={TrendingUp}
-              title="Accelerate Growth"
-              description="Boost your potential through our combined expertise."
-              delay={0.1}
-            />
-            <Feature
-              icon={Users}
-              title="Collaborative Network"
-              description="Join a community of like-minded innovators."
-              delay={0.2}
-            />
-            <Feature
-              icon={Target}
-              title="Achieve Excellence"
-              description="Reach new heights in your professional journey."
-              delay={0.3}
-            />
-          </div>
-        </LazyLoadComponent>
+        <main className="main-content">
+          <LazyLoadComponent delay={0.2}>
+            <section className="welcome-section">
+              <h1 className="title glow">Welcome to Synergy</h1>
+              <p className="subtitle">
+                We are a collective of innovators inspired by the power of
+                collaboration and shared vision.
+              </p>
+            </section>
+          </LazyLoadComponent>
 
-        <LazyLoadComponent delay={0.2}>
-          <div className="application-form">
-            <div className="form-header">
-              <h2 className="form-title glow">Membership Application</h2>
-              <SynergyLogo />
+          <LazyLoadComponent delay={0.2}>
+            <div className="about-us">
+              <h2 className="glow">About Synergy</h2>
+              <p>
+                Synergy is a cutting-edge collective of innovators who believe in
+                the power of collaboration, shared knowledge, and continuous growth.
+                We strive to create an environment where ideas flourish and
+                innovations thrive.
+              </p>
+              <h3 className="glow">Our Core Values</h3>
+              <ul>
+                <li>
+                   <TrendingUp size={16} /> Innovation: We push the boundaries of what's
+                  possible.
+                </li>
+                <li>
+                  <TrendingUp size={16} /> Growth: We constantly evolve and adapt to
+                  stay ahead.
+                </li>
+                <li>
+                  <Users size={16} /> Collaboration: We believe in the power of
+                  collective intelligence.
+                </li>
+                <li>
+                  <Target size={16} /> Excellence: We strive for nothing less than the
+                  best in all we do.
+                </li>
+              </ul>
+              <p>
+                Join Synergy and be part of a movement that's shaping the future of
+                innovation!
+              </p>
             </div>
-            <form action="https://formsubmit.co/ephriam123@gmail.com" method="POST">
-              <div className="form-grid">
-                <div className="form-field">
-                  <label htmlFor="name">Full Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="John Doe"
-                    required
-                  />
-                </div>
-                <div className="form-field">
-                  <label htmlFor="email">Email Address</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="john@example.com"
-                    required
-                  />
-                </div>
-                <div className="form-field">
-                  <label htmlFor="expertise">Area of Expertise</label>
-                  <input
-                    type="text"
-                    id="expertise"
-                    name="expertise"
-                    placeholder="e.g., AI, Blockchain"
-                    required
-                  />
-                </div>
-                <div className="form-field">
-                  <label htmlFor="experience">Years of Experience</label>
-                  <input
-                    type="number"
-                    id="experience"
-                    name="experience"
-                    placeholder="5"
-                    required
-                  />
-                </div>
+          </LazyLoadComponent>
+
+          <LazyLoadComponent delay={0.3}>
+            <h1 className="section-title glow">Features</h1>
+            <div className="features">
+              <Feature
+                icon={TrendingUp}
+                title="Accelerate Growth"
+                description="Boost your potential through our combined expertise."
+                delay={0.1}
+              />
+              <Feature
+                icon={Users}
+                title="Collaborative Network"
+                description="Join a community of like-minded innovators."
+                delay={0.2}
+              />
+              <Feature
+                icon={Target}
+                title="Achieve Excellence"
+                description="Reach new heights in your professional journey."
+                delay={0.3}
+              />
+            </div>
+          </LazyLoadComponent>
+
+          <LazyLoadComponent delay={0.2}>
+            <div className="application-form">
+              <div className="form-header">
+                <h2 className="form-title glow">Membership Application</h2>
+                <SynergyLogo />
               </div>
-              <div className="form-field full-width">
-                <label htmlFor="motivation">
-                  What motivates you to join Synergy?
-                </label>
-                <textarea
-                  id="motivation"
-                  name="motivation"
-                  placeholder="Share your thoughts..."
-                  required
-                ></textarea>
-              </div>
-              <motion.button
-                type="submit"
-                className="submit-button"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Submit Application
-              </motion.button>
-            </form>
-          </div>
-        </LazyLoadComponent>
-      </main>
+              <form action="https://formsubmit.co/ephriam123@gmail.com" method="POST">
+                <div className="form-grid">
+                  <div className="form-field">
+                    <label htmlFor="name">Full Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="John Doe"
+                      required
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="email">Email Address</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="john@example.com"
+                      required
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="expertise">Area of Expertise</label>
+                    <input
+                      type="text"
+                      id="expertise"
+                      name="expertise"
+                      placeholder="e.g., AI, Blockchain"
+                      required
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="experience">Years of Experience</label>
+                    <input
+                      type="number"
+                      id="experience"
+                      name="experience"
+                      placeholder="5"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-field full-width">
+                  <label htmlFor="motivation">
+                    What motivates you to join Synergy?
+                  </label>
+                  <textarea
+                    id="motivation"
+                    name="motivation"
+                    placeholder="Share your thoughts..."
+                    required
+                  ></textarea>
+                </div>
+                <motion.button
+                  type="submit"
+                  className="submit-button"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Submit Application
+                </motion.button>
+              </form>
+            </div>
+          </LazyLoadComponent>
+        </main>
+      </div>
     </div>
   );
 };
