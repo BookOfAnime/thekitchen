@@ -515,17 +515,18 @@ textarea {
   width: 32px;
   height: 32px;
   vertical-align: middle;
+  scale: 9;
 }
 
 @media (max-width: 768px) {
   .header {
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
     align-items: flex-start;
     padding: 1rem 2rem;
   }
 
   .applications-open {
-    margin-top: 1rem;
   }
 
   .main-content {
@@ -553,7 +554,7 @@ textarea {
   .features,
   .about-us,
   .application-form {
-    padding: 3rem 0;
+    padding: rem 0;
     margin-bottom: 2rem;
   }
 
@@ -570,6 +571,12 @@ textarea {
   html {
     font-size: 14px;
   }
+
+  .applications-open {
+    margin-top: 0px;
+    scale: .8;
+  }
+
   .welcome-section {
     height: 70vh;
     margin-top: 10rem;
@@ -577,7 +584,7 @@ textarea {
     vertical-align: center;
   }
   .features {
-    height: 100vh;
+    height: 100%;
   }
 
   .site-content{
@@ -587,12 +594,12 @@ textarea {
 
   .about-us {
     max-width: 1000px;
-    margin: 0 auto 4rem auto;
+    margin: 0 auto rem auto;
     padding: 4rem;
     backdrop-filter: blur(5px);
     border-radius: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    height: 100vh;
+    height: 100%;
   }
 
   .about-us h2 {
@@ -640,20 +647,22 @@ textarea {
   }
 
   .header {
-    padding: 1rem;
+    padding: .5rem;
     display: flex;
     flex-direction: row;
   }
   .header-title {
     margin-top: 10px;
+    font-size: 1.5rem;
   }
 
   .synergy-letter {
-    font-size: clamp(2rem, 8vw, 6rem);
+    font-size: 1.4rem;
   }
   .form-title {
     text-align: center;
     padding: 5px;
+    font-size: 1.4rem;
   }
   .application-form {
     text-align: center;
@@ -674,6 +683,8 @@ textarea {
   .application-form {
     padding: 2rem 1rem;
     margin-bottom: 1.5rem;
+
+
   }
 
   .main-content > * {
@@ -685,7 +696,7 @@ textarea {
   }
 
   .synergy-letter {
-    font-size: 5rem;
+    font-size: 3rem;
   }
 
   .form-field {
