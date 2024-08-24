@@ -150,25 +150,21 @@ const SynergyLogo = () => (
 );
 
 const SynergyLandingPage = () => {
-
-
-
   const formRef = useRef(null);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [notification, setNotification] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    fetch("YOUR_GOOGLE_SCRIPT_URL", {
-      method: 'POST',
-      body: new FormData(formRef.current),
-    }).then(res => res.json())
-      .then(data => {
-        console.log(data);
-        alert(data.msg);
-      })
-      .catch(err => console.log(err));
-  }
+    formRef.current.submit();
+
+    setNotification("Application submitted successfully!");
+    setTimeout(() => setNotification(""), 3000); // Clear notification after 3 seconds
+    setIsSubmitting(false);
+  };
+
   return (
     <div className="synergy-landing-page">
       <div className="background-overlay"></div>
@@ -204,7 +200,7 @@ const SynergyLandingPage = () => {
               <h3 className="glow">Our Core Values</h3>
               <ul>
                 <li>
-                   <TrendingUp size={16} /> Innovation: We push the boundaries of what's
+                  <TrendingUp size={16} /> Innovation: We push the boundaries of what's
                   possible.
                 </li>
                 <li>
@@ -257,7 +253,12 @@ const SynergyLandingPage = () => {
                 <h2 className="form-title glow">Membership Application</h2>
                 <SynergyLogo />
               </div>
-              <form action="https://getform.io/f/bejynvya" method="POST" >
+              <form
+                action="https://script.google.com/macros/s/AKfycbwGd4xZSxShiv2Y1xCDvAfX-EnfI9uVwJGl__-imu6m45XYBGwP8rHChVQ-8cWSN7edHg/exec"
+                method="POST"
+                ref={formRef}
+                onSubmit={handleSubmit}
+              >
                 <div className="form-grid">
                   <div className="form-field">
                     <label htmlFor="name">Full Name</label>
@@ -316,10 +317,16 @@ const SynergyLandingPage = () => {
                   className="submit-button"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  disabled={isSubmitting}
                 >
-                  Submit Application
+                  {isSubmitting ? "Submitting..." : "Submit Application"}
                 </motion.button>
               </form>
+              {notification && (
+                <div className="notification">
+                  <p>{notification}</p>
+                </div>
+              )}
             </div>
           </LazyLoadComponent>
         </main>
@@ -343,8 +350,6 @@ function App() {
   const handleEnter = () => {
     setEnterSite(true);
   };
-
-
 
   return (
     <div className="app-container">
