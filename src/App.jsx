@@ -158,11 +158,35 @@ const SynergyLandingPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    formRef.current.submit();
+    const formData = new FormData(e.target);
 
-    setNotification("Application submitted successfully!");
-    setTimeout(() => setNotification(""), 3000); // Clear notification after 3 seconds
-    setIsSubmitting(false);
+    fetch("https://script.google.com/macros/s/AKfycbymXXrsMBHQ3I8TKd0uqtDa_K5ASM6_EEVgmkT33knhZxcu3eN275dKTh1UnozF_dax/exec", {
+      method: "POST",
+      body: formData,
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(data => {
+        console.log("Form submission response:", data);
+        if (data.startsWith("Success")) {
+          setNotification("Application submitted successfully!");
+          e.target.reset(); // Reset the form
+        } else {
+          setNotification("Unexpected response. Please try again or contact support.");
+        }
+      })
+      .catch(error => {
+        console.error("Error submitting form:", error);
+        setNotification("Error submitting application. Please try again.");
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+        setTimeout(() => setNotification(""), 3000); // Clear notification after 3 seconds
+      });
   };
 
   return (
@@ -192,33 +216,33 @@ const SynergyLandingPage = () => {
             <div className="about-us">
               <h2 className="glow">About Synergy</h2>
               <p>
-                Synergy is a cutting-edge collective of innovators who believe in
-                the power of collaboration, shared knowledge, and continuous growth.
-                We strive to create an environment where ideas flourish and
-                innovations thrive.
+                Synergy is a cutting-edge collective of innovators who believe
+                in the power of collaboration, shared knowledge, and continuous
+                growth. We strive to create an environment where ideas flourish
+                and innovations thrive.
               </p>
               <h3 className="glow">Our Core Values</h3>
               <ul>
                 <li>
-                  <TrendingUp size={16} /> Innovation: We push the boundaries of what's
-                  possible.
+                  <TrendingUp size={16} /> Innovation: We push the boundaries of
+                  what's possible.
                 </li>
                 <li>
-                  <TrendingUp size={16} /> Growth: We constantly evolve and adapt to
-                  stay ahead.
+                  <TrendingUp size={16} /> Growth: We constantly evolve and
+                  adapt to stay ahead.
                 </li>
                 <li>
                   <Users size={16} /> Collaboration: We believe in the power of
                   collective intelligence.
                 </li>
                 <li>
-                  <Target size={16} /> Excellence: We strive for nothing less than the
-                  best in all we do.
+                  <Target size={16} /> Excellence: We strive for nothing less
+                  than the best in all we do.
                 </li>
               </ul>
               <p>
-                Join Synergy and be part of a movement that's shaping the future of
-                innovation!
+                Join Synergy and be part of a movement that's shaping the future
+                of innovation!
               </p>
             </div>
           </LazyLoadComponent>
@@ -253,12 +277,7 @@ const SynergyLandingPage = () => {
                 <h2 className="form-title glow">Membership Application</h2>
                 <SynergyLogo />
               </div>
-              <form
-                action="https://script.google.com/macros/s/AKfycbwGd4xZSxShiv2Y1xCDvAfX-EnfI9uVwJGl__-imu6m45XYBGwP8rHChVQ-8cWSN7edHg/exec"
-                method="POST"
-                ref={formRef}
-                onSubmit={handleSubmit}
-              >
+              <form ref={formRef} onSubmit={handleSubmit} className="form">
                 <div className="form-grid">
                   <div className="form-field">
                     <label htmlFor="name">Full Name</label>
