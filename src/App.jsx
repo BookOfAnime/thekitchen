@@ -368,6 +368,7 @@ function App() {
 
   const handleEnter = () => {
     setEnterSite(true);
+    // console.log("test")
   };
 
   return (
@@ -392,7 +393,7 @@ function App() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <span className="button-text">Explore</span>
+                <span className="button-text">Coming Soon</span>
                 <span className="button-glow"></span>
               </motion.button>
             )}
