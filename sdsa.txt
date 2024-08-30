@@ -1,0 +1,35 @@
+View edm news instagrams
+scrape and rewrite the content and then create blog posts on the website directly.
+Adds a new index page on the site.
+meets goolge web crawler standards
+
+
+https://www.instagram.com/edm_maniac?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==
+
+Example:
+"
+We’re hiring our very first CMO — Chief MEME Officer at EDM Maniac 👩‍🍳👩‍💻🙂
+
+We live in an era where digital media thrives, and memes have become iconic cultural symbols recognized worldwide.
+
+Memes are a huge part of our culture and community, so we’re searching for someone to curate viral, intriguing, and engaging memes for one of our brands. YES, you read that right. We’re looking for someone to...
+
+⚡️Create high-quality original and viral content utilizing various forms of media
+
+⚡️Help grow one of our social channels’ following by effectively utilizing metrics to identify perfect meme opportunities
+
+⚡️Create the “next generation of memes” by creatively using digital media and social trends with a little bit of SPICE 🌶️ (are you BRAT?! Or very demure?)
+
+TO APPLY, comment “RAVEJOB” (one word) and we’ll DM you all of the information. ✨
+
+Please note: As part of the onboarding process for this position, you must sign a Non-Disclosure Agreement (NDA).
+
+⭐️ If selected as our first-ever Chief Meme Officer, we’ll discuss an exciting compensation package with you. This is a remote, part-time, contract role. 🤙🎶
+Edited · 3d"
+
+
+Summarizes the same exact post in a unique style to dope design
+Writing style of blog to remain 
+give a prompt of a blog
+
+Ma
