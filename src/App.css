@@ -267,14 +267,14 @@ body {
   animation: glow 2s ease-in-out infinite alternate;
 }
 
-@keyframes glow {
+/* @keyframes glow {
   from {
     text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px var(--text-color), 0 0 5px var(--text-color);
   }
   to {
     text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px var(--text-color), 0 0 10px var(--text-color);
   }
-}
+} */
 
 .section-title {
   text-align: center;
