@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { TrendingUp, Users, Target, Mail, Phone, MapPin, Menu } from "lucide-react";
+import { TrendingUp, Users, Target, Mail, Phone, MapPin, Menu, ChevronRight } from "lucide-react";
 import { BrowserRouter as Router, Route, Link, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 
-// Lazy loading component that animates elements on scroll
 const LazyLoadComponent = ({ children, delay = 0 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
@@ -36,38 +35,44 @@ const StarryBackground = () => {
 
     const stars = [];
     const generateStars = () => {
-      for (let i = 0; i < 200; i++) {
+      const numStars = Math.floor((canvas.width * canvas.height) / 1000); // Adjust density here
+      for (let i = 0; i < numStars; i++) {
         stars.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           radius: Math.random() * 1.5,
-          vx: Math.floor(Math.random() * 50) - 25,
-          vy: Math.floor(Math.random() * 50) - 25,
+          opacity: Math.random() * 0.5 + 0.1, // Vary initial opacity
+          glintTimer: Math.random() * 200, // Random start time for glint
         });
       }
     };
 
     const drawStars = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "white";
       stars.forEach((star) => {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2, false);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
         ctx.fill();
       });
     };
 
-    const moveStars = () => {
+    const updateStars = () => {
       stars.forEach((star) => {
-        star.x += star.vx / 30;
-        star.y += star.vy / 30;
-        if (star.x < 0 || star.x > canvas.width) star.vx = -star.vx;
-        if (star.y < 0 || star.y > canvas.height) star.vy = -star.vy;
+        star.glintTimer--;
+        if (star.glintTimer <= 0) {
+          star.opacity = Math.min(star.opacity + 0.1, 0.7); // Increase opacity for glint
+          if (star.opacity >= 0.7) {
+            star.glintTimer = Math.random() * 200 + 50; // Reset glint timer
+          }
+        } else {
+          star.opacity = Math.max(star.opacity - 0.01, 0.1); // Slowly decrease opacity
+        }
       });
     };
 
     const animate = () => {
-      moveStars();
+      updateStars();
       drawStars();
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -189,6 +194,7 @@ const Header = () => {
 };
 
 const RoadmapPage = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
   const roadmapItems = [
     { phase: "Phase 1", title: "Community Building", description: "Establish core community and initial partnerships" },
     { phase: "Phase 2", title: "Platform Development", description: "Launch beta version of Synergy platform" },
@@ -196,22 +202,56 @@ const RoadmapPage = () => {
     { phase: "Phase 4", title: "Global Integration", description: "Integrate with major global networks and systems" },
   ];
 
+  const handleNext = () => {
+    setActiveIndex((prevIndex) => (prevIndex + 1) % roadmapItems.length);
+  };
+
+  const calculatePosition = (index, isMobile) => {
+    const angle = ((index - activeIndex) * 90 + 360) % 360;
+    const radius = isMobile ? 150 : 200; // Adjust this value to change the circle size
+    const x = Math.cos((angle * Math.PI) / 180) * radius;
+    const y = Math.sin((angle * Math.PI) / 180) * radius;
+    return { x, y };
+  };
+
   return (
     <div className="roadmap-page">
+                   <StarryBackground />
+
       <h1 className="section-title glow">Synergy Roadmap</h1>
-      <div className="timeline">
-        {roadmapItems.map((item, index) => (
-          <LazyLoadComponent key={index} delay={index * 0.2}>
-            <div className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}>
-              <div className="timeline-content">
-                <div className="roadmap-phase">{item.phase}</div>
-                <h3 className="roadmap-title">{item.title}</h3>
+      <div className="circular-roadmap">
+        <div className="roadmap-logo"></div>
+        {roadmapItems.map((item, index) => {
+          const desktopPosition = calculatePosition(index, false);
+          const mobilePosition = calculatePosition(index, true);
+          return (
+            <motion.div
+              key={item.phase}
+              className={`roadmap-item ${index === activeIndex ? 'active' : ''}`}
+              initial={false}
+              animate={{
+                x: [desktopPosition.x, mobilePosition.x],
+                y: [desktopPosition.y, mobilePosition.y],
+                zIndex: index === activeIndex ? 1 : 0,
+              }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="item-content">
+                <h3 className="roadmap-phase">{item.phase}</h3>
+                <h4 className="roadmap-title">{item.title}</h4>
                 <p className="roadmap-description">{item.description}</p>
               </div>
-            </div>
-          </LazyLoadComponent>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
+      <div className="active-description">
+        {roadmapItems[activeIndex].description}
+      </div>
+      <button className="next-button" onClick={handleNext}>
+        <ChevronRight size={24} />
+        Next
+      </button>
     </div>
   );
 };
@@ -237,6 +277,8 @@ const ContactPage = () => {
 
   return (
     <div className="contact-page">
+                   <StarryBackground />
+
       <h1 className="section-title glow">Contact Us</h1>
       <div className="contact-container">
         <div className="contact-info">
@@ -344,6 +386,8 @@ const SynergyLandingPage = () => {
 
   return (
     <div className="synergy-landing-page">
+                   <StarryBackground />
+
       <div className="background-overlay"></div>
       <div className="content-wrapper">
         <main className="main-content">
@@ -446,7 +490,6 @@ const SynergyLandingPage = () => {
                   <div className="form-field">
                     <label htmlFor="expertise">
                     Are you studying, and if so what are you studying? 
-
                     </label>
                     <input
                      type="text"
@@ -626,6 +669,7 @@ function App() {
        </AnimatePresence>
 
        <AnimatePresence>
+
          {enterSite && (
            <motion.div
              className="site-content site-content-active"
