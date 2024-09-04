@@ -208,7 +208,7 @@ const RoadmapPage = () => {
 
   const calculatePosition = (index, isMobile) => {
     const angle = ((index - activeIndex) * 90 + 360) % 360;
-    const radius = isMobile ? 150 : 200; // Adjust this value to change the circle size
+    const radius = isMobile ? 300 : 100; // Adjust this value to change the circle size
     const x = Math.cos((angle * Math.PI) / 180) * radius;
     const y = Math.sin((angle * Math.PI) / 180) * radius;
     return { x, y };
@@ -245,9 +245,9 @@ const RoadmapPage = () => {
           );
         })}
       </div>
-      <div className="active-description">
+      {/* <div className="active-description">
         {roadmapItems[activeIndex].description}
-      </div>
+      </div> */}
       <button className="next-button" onClick={handleNext}>
         <ChevronRight size={24} />
         Next

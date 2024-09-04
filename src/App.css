@@ -267,15 +267,6 @@ body {
   animation: glow 2s ease-in-out infinite alternate;
 }
 
-/* @keyframes glow {
-  from {
-    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px var(--text-color), 0 0 5px var(--text-color);
-  }
-  to {
-    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px var(--text-color), 0 0 10px var(--text-color);
-  }
-} */
-
 .section-title {
   text-align: center;
   font-family: var(--heading-font);
@@ -513,12 +504,13 @@ textarea {
 .roadmap-page {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  min-height: 100vh;
+  min-height: 80vh;
+  max-height: 100vh;
   padding: 2rem;
   box-sizing: border-box;
-  padding-top: 120px; /* Increased padding to ensure the title is not blocked by the header */
+  padding-top: 120px;
 }
 
 .circular-roadmap {
@@ -534,13 +526,14 @@ textarea {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 120px;
-  height: 120px;
+  width: 1000px;
+  height: 1000px;
   background-image: url('/logo.svg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  z-index: 10;
+  z-index: -10;
+  opacity: .5;
 }
 
 .roadmap-item {
@@ -592,7 +585,7 @@ textarea {
 }
 
 .roadmap-item:not(.active) .item-content {
-  opacity: 0.2;
+  opacity: 0.6;
   transform: scale(0.8);
 }
 
@@ -630,6 +623,7 @@ textarea {
   font-weight: 600;
   transition: all 0.3s ease;
   margin: 2rem auto;
+  z-index: 10;
 }
 
 .next-button:hover {
@@ -663,7 +657,7 @@ textarea {
 }
 
 .contact-info p {
-  color: var (--light-text-color);
+  color: var(--light-text-color);
   font-size: 1rem;
   margin-bottom: 2rem;
 }
@@ -772,8 +766,8 @@ textarea {
   }
 
   .roadmap-logo {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
   }
 
   .roadmap-phase {
@@ -786,6 +780,10 @@ textarea {
 
   .roadmap-description {
     font-size: 0.8rem;
+  }
+
+  .roadmap-item.active .item-content {
+    transform: scale(1.05);
   }
 }
 
@@ -867,8 +865,8 @@ textarea {
   }
 
   .roadmap-logo {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
   }
 
   .roadmap-phase {
@@ -881,6 +879,53 @@ textarea {
 
   .roadmap-description {
     font-size: 0.7rem;
+  }
+
+  .roadmap-item.active .item-content {
+    transform: scale(1.1);
+  }
+
+  .active-description {
+    font-size: 0.9rem;
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+
+  .next-button {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+/* Additional styles for improved roadmap layout */
+@media screen and (max-width: 768px) {
+  .circular-roadmap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+  .roadmap-item {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 1rem 0;
+    transform: none !important;
+  }
+
+  .roadmap-item.active {
+    order: 3; /* Place active item in the middle */
+  }
+
+  .roadmap-logo {
+    position: relative;
+    transform: none;
+    margin: 2rem 0;
+  }
+
+  .roadmap-item.active .item-content {
+    transform: scale(1.1);
   }
 }
 
