@@ -190,6 +190,7 @@ body {
   background: rgba(26, 26, 46, 0.3);
   backdrop-filter: blur(10px);
   transition: background-color 0.3s ease;
+  height: 100px;
 }
 
 .logo {
@@ -494,12 +495,6 @@ textarea {
   background: var(--accent-color);
 }
 
-.synergy-logo {
-  width: 32px;
-  height: 32px;
-  vertical-align: middle;
-}
-
 /* Refined Roadmap styles */
 .roadmap-page {
   display: flex;
@@ -533,7 +528,7 @@ textarea {
   background-repeat: no-repeat;
   background-position: center;
   z-index: -10;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .roadmap-item {
@@ -685,6 +680,11 @@ textarea {
 @media screen and (max-width: 768px) {
   .header {
     padding: 1rem;
+    height: 80px; /* Reduce height */
+  }
+
+  .logo {
+    font-size: 1.5rem;
   }
 
   .menu-toggle {
@@ -794,6 +794,8 @@ textarea {
 
   .header {
     flex-wrap: wrap;
+    padding: 0.5rem;
+    height: 80px; /* Reduce height */
   }
 
   .logo {

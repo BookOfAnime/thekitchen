@@ -177,7 +177,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="logo">
-        <SynergyLogo />
+        <SynergyLogo className='one'/>
         <span className="header-title">Synergy</span>
       </div>
       <button className="menu-toggle" onClick={toggleMenu}>
@@ -463,7 +463,6 @@ const SynergyLandingPage = () => {
             <div id="application-form" className="application-form" ref={formRef}>
               <div className="form-header">
                 <h2 className="form-title glow">Membership Application</h2>
-                <SynergyLogo />
               </div>
               <form onSubmit={handleSubmit} className="form">
                 <div className="form-grid">
