@@ -1,7 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { TrendingUp, Users, Target, Mail, Phone, MapPin, Menu, ChevronRight } from "lucide-react";
-import { BrowserRouter as Router, Route, Link, Routes, useNavigate } from "react-router-dom";
+import {
+  TrendingUp,
+  Users,
+  Target,
+  Mail,
+  Phone,
+  MapPin,
+  Menu,
+  ChevronRight,
+} from "lucide-react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
 
 const LazyLoadComponent = ({ children, delay = 0 }) => {
@@ -35,14 +50,14 @@ const StarryBackground = () => {
 
     const stars = [];
     const generateStars = () => {
-      const numStars = Math.floor((canvas.width * canvas.height) / 1000); // Adjust density here
+      const numStars = Math.floor((canvas.width * canvas.height) / 1000);
       for (let i = 0; i < numStars; i++) {
         stars.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           radius: Math.random() * 1.5,
-          opacity: Math.random() * 0.5 + 0.1, // Vary initial opacity
-          glintTimer: Math.random() * 200, // Random start time for glint
+          opacity: Math.random() * 0.5 + 0.1,
+          glintTimer: Math.random() * 200,
         });
       }
     };
@@ -61,12 +76,12 @@ const StarryBackground = () => {
       stars.forEach((star) => {
         star.glintTimer--;
         if (star.glintTimer <= 0) {
-          star.opacity = Math.min(star.opacity + 0.1, 0.7); // Increase opacity for glint
+          star.opacity = Math.min(star.opacity + 0.1, 0.7);
           if (star.opacity >= 0.7) {
-            star.glintTimer = Math.random() * 200 + 50; // Reset glint timer
+            star.glintTimer = Math.random() * 200 + 50;
           }
         } else {
-          star.opacity = Math.max(star.opacity - 0.01, 0.1); // Slowly decrease opacity
+          star.opacity = Math.max(star.opacity - 0.01, 0.1);
         }
       });
     };
@@ -134,7 +149,6 @@ const EnergySpark = () => {
     />
   );
 };
-
 const Feature = ({ icon: Icon, title, description, delay }) => (
   <LazyLoadComponent delay={delay}>
     <motion.div
@@ -177,17 +191,40 @@ const Header = () => {
   return (
     <header className="header">
       <div className="logo">
-        <SynergyLogo className='one'/>
+        <SynergyLogo className="one" />
         <span className="header-title">Synergy</span>
       </div>
       <button className="menu-toggle" onClick={toggleMenu}>
         <Menu size={24} />
       </button>
-      <nav className={`nav-buttons ${isMenuOpen ? 'active' : ''}`}>
-        <Link to="/" className="nav-button" onClick={() => setIsMenuOpen(false)}>Home</Link>
-        <Link to="/roadmap" className="nav-button" onClick={() => setIsMenuOpen(false)}>Roadmap</Link>
-        <Link to="/contact" className="nav-button" onClick={() => setIsMenuOpen(false)}>Contact</Link>
-        <button onClick={scrollToApplicationForm} className="nav-button applications-open">Applications Open</button>
+      <nav className={`nav-buttons ${isMenuOpen ? "active" : ""}`}>
+        <Link
+          to="/"
+          className="nav-button"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          Home
+        </Link>
+        <Link
+          to="/roadmap"
+          className="nav-button"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          Roadmap
+        </Link>
+        <Link
+          to="/contact"
+          className="nav-button"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          Contact
+        </Link>
+        <button
+          onClick={scrollToApplicationForm}
+          className="nav-button applications-open"
+        >
+          Applications Open
+        </button>
       </nav>
     </header>
   );
@@ -195,20 +232,47 @@ const Header = () => {
 
 const RoadmapPage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const roadmapItems = [
-    { phase: "Phase 1", title: "Community Building", description: "Establish core community and initial partnerships" },
-    { phase: "Phase 2", title: "Platform Development", description: "Launch beta version of Synergy platform" },
-    { phase: "Phase 3", title: "Expansion", description: "Scale operations and introduce advanced features" },
-    { phase: "Phase 4", title: "Global Integration", description: "Integrate with major global networks and systems" },
+    {
+      phase: "Phase 1",
+      title: "Community Building",
+      description: "Inaugural membership application process",
+    },
+    {
+      phase: "Phase 2",
+      title: "Platform Development",
+      description: " Connecting and fostering collaborative relationships",
+    },
+    {
+      phase: "Phase 3",
+      title: "Expansion",
+      description: "Enhancing members opportunities through networks ",
+    },
+    {
+      phase: "Phase 4",
+      title: "Global Integration",
+      description: "Expansion into multi-network agency platform",
+    },
   ];
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleNext = () => {
     setActiveIndex((prevIndex) => (prevIndex + 1) % roadmapItems.length);
   };
 
-  const calculatePosition = (index, isMobile) => {
+  const calculatePosition = (index) => {
+    if (isMobile) return { x: 0, y: 0 };
     const angle = ((index - activeIndex) * 90 + 360) % 360;
-    const radius = isMobile ? 300 : 100; // Adjust this value to change the circle size
+    const radius = 200;
     const x = Math.cos((angle * Math.PI) / 180) * radius;
     const y = Math.sin((angle * Math.PI) / 180) * radius;
     return { x, y };
@@ -216,22 +280,23 @@ const RoadmapPage = () => {
 
   return (
     <div className="roadmap-page">
-                   <StarryBackground />
-
+      <StarryBackground />
       <h1 className="section-title glow">Synergy Roadmap</h1>
       <div className="circular-roadmap">
         <div className="roadmap-logo"></div>
         {roadmapItems.map((item, index) => {
-          const desktopPosition = calculatePosition(index, false);
-          const mobilePosition = calculatePosition(index, true);
+          const position = calculatePosition(index);
           return (
             <motion.div
               key={item.phase}
-              className={`roadmap-item ${index === activeIndex ? 'active' : ''}`}
+              className={`roadmap-item ${
+                index === activeIndex ? "active" : ""
+              }`}
               initial={false}
               animate={{
-                x: [desktopPosition.x, mobilePosition.x],
-                y: [desktopPosition.y, mobilePosition.y],
+                x: position.x,
+                y: position.y,
+                opacity: isMobile ? (index === activeIndex ? 1 : 0) : 1,
                 zIndex: index === activeIndex ? 1 : 0,
               }}
               transition={{ duration: 0.5 }}
@@ -245,13 +310,12 @@ const RoadmapPage = () => {
           );
         })}
       </div>
-      {/* <div className="active-description">
-        {roadmapItems[activeIndex].description}
-      </div> */}
-      <button className="next-button" onClick={handleNext}>
-        <ChevronRight size={24} />
-        Next
-      </button>
+      <div className="roadmap-controls">
+        <button className="next-button" onClick={handleNext}>
+          {isMobile ? "Next Phase" : "Next"}
+          <ChevronRight size={24} />
+        </button>
+      </div>
     </div>
   );
 };
@@ -269,21 +333,21 @@ const ContactPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
     console.log("Form submitted:", formData);
-    // Reset form after submission
     setFormData({ name: "", email: "", message: "" });
   };
 
   return (
     <div className="contact-page">
-                   <StarryBackground />
-
+      <StarryBackground />
       <h1 className="section-title glow">Contact Us</h1>
       <div className="contact-container">
         <div className="contact-info">
           <h2>Get in Touch</h2>
-          <p>We'd love to hear from you. Reach out to us using the information below or fill out the contact form.</p>
+          <p>
+            We'd love to hear from you. Reach out to us using the information
+            below or fill out the contact form.
+          </p>
           <div className="contact-details">
             <div className="contact-item">
               <Mail size={24} />
@@ -332,7 +396,9 @@ const ContactPage = () => {
               required
             ></textarea>
           </div>
-          <button type="submit" className="submit-button">Send Message</button>
+          <button type="submit" className="submit-button">
+            Send Message
+          </button>
         </form>
       </div>
     </div>
@@ -367,7 +433,7 @@ const SynergyLandingPage = () => {
         console.log("Form submission response:", data);
         if (data.startsWith("Success")) {
           setNotification("Application submitted successfully!");
-          e.target.reset(); // Reset the form
+          e.target.reset();
         } else {
           setNotification(
             "Unexpected response. Please try again or contact support."
@@ -380,14 +446,13 @@ const SynergyLandingPage = () => {
       })
       .finally(() => {
         setIsSubmitting(false);
-        setTimeout(() => setNotification(""), 3000); // Clear notification after 3 seconds
+        setTimeout(() => setNotification(""), 3000);
       });
   };
 
   return (
     <div className="synergy-landing-page">
-                   <StarryBackground />
-
+      <StarryBackground />
       <div className="background-overlay"></div>
       <div className="content-wrapper">
         <main className="main-content">
@@ -440,33 +505,38 @@ const SynergyLandingPage = () => {
             <div className="features">
               <Feature
                 icon={TrendingUp}
-                title="Accelerate Growth"
-                description="Boost your potential through our combined expertise."
+                title="Learn"
+                description="Technical/Fundamental analysis, identifying key alpha/strategies, economic outlook and much more."
                 delay={0.1}
               />
               <Feature
                 icon={Users}
-                title="Collaborative Network"
-                description="Join a community of like-minded innovators."
+                title="Network"
+                description="Join a group of like-minded individuals who are hungry for trading success and spirited by entrepreneurship. Enhance your skill sets. 
+."
                 delay={0.2}
               />
               <Feature
                 icon={Target}
-                title="Achieve Excellence"
-                description="Reach new heights in your professional journey."
+                title="Create"
+                description="We have members skilled in content creation, marketing , design, website development and coding. Help bring your idea to life. Build with others. Group meme coin and crypto projects. "
                 delay={0.3}
               />
             </div>
           </LazyLoadComponent>
 
           <LazyLoadComponent delay={0.2}>
-            <div id="application-form" className="application-form" ref={formRef}>
+            <div
+              id="application-form"
+              className="application-form"
+              ref={formRef}
+            >
               <div className="form-header">
                 <h2 className="form-title glow">Membership Application</h2>
               </div>
               <form onSubmit={handleSubmit} className="form">
                 <div className="form-grid">
-                  <div className="form-field">
+                  {/* <div className="form-field">
                     <label htmlFor="name">Full Name</label>
                     <input
                       type="text"
@@ -475,7 +545,7 @@ const SynergyLandingPage = () => {
                       placeholder="John Doe"
                       required
                     />
-                  </div>
+                  </div> */}
                   <div className="form-field">
                     <label htmlFor="email">Email Address</label>
                     <input
@@ -488,17 +558,17 @@ const SynergyLandingPage = () => {
                   </div>
                   <div className="form-field">
                     <label htmlFor="expertise">
-                    Are you studying, and if so what are you studying? 
+                      Are you studying, and if so what are you studying?
                     </label>
                     <input
-                     type="text"
-                     id="expertise"
-                     name="expertise"
-                     placeholder="e.g., AI, Blockchain"
-                     required
-                   />
-                 </div>
-                 <div className="form-field">
+                      type="text"
+                      id="expertise"
+                      name="expertise"
+                      placeholder="e.g., AI, Blockchain"
+                      required
+                    />
+                  </div>
+                  {/* <div className="form-field">
                    <label htmlFor="experience">Years of Experience</label>
                    <input
                      type="number"
@@ -507,188 +577,187 @@ const SynergyLandingPage = () => {
                      placeholder="5"
                      required
                    />
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="twitter">
-                     What is your Twitter handle?
-                   </label>
-                   <input
-                     type="text"
-                     id="twitter"
-                     name="twitter"
-                     placeholder="@yourhandle"
-                   />
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="motivation">
-                     What motivates you to be successful?
-                   </label>
-                   <input
-                     type="text"
-                     id="motivation"
-                     name="motivation"
-                     placeholder="Your motivation..."
-                   />
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="time_investment">
-                     Where do you invest most of your time?
-                   </label>
-                   <input
-                     type="text"
-                     id="time_investment"
-                     name="time_investment"
-                     placeholder="(crypto/stocks/property/content creation etc…)?"
-                   />
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="specialty">
-                     Please list areas of specialty/personal skill sets:
-                   </label>
-                   <input
-                     type="text"
-                     id="specialty"
-                     name="specialty"
-                     placeholder="Your specialties..."
-                   />
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="communities">
-                     Are you part of any existing communities or businesses?
-                   </label>
-                   <input
-                     type="text"
-                     id="communities"
-                     name="communities"
-                     placeholder="List communities/businesses..."
-                   />
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="synergy_interest">
-                     Why are you interested in Synergy?
-                   </label>
-                   <textarea
-                     id="synergy_interest"
-                     name="synergy_interest"
-                     placeholder="Share your thoughts..."
-                     required
-                   ></textarea>
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="terms_agree">
-                   Are you willing to pay a monthly subscription rate?
-                   </label>
-                   <input
-                     type="checkbox"
-                     id="terms_agree"
-                     name="terms_agree"
-                     required
-                   />
-                 </div>
-                 <div className="form-field">
+                 </div> */}
+                  <div className="form-field">
+                    <label htmlFor="twitter">
+                      What is your Twitter handle?
+                    </label>
+                    <input
+                      type="text"
+                      id="twitter"
+                      name="twitter"
+                      placeholder="@yourhandle"
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="motivation">
+                      What motivates you to be successful?
+                    </label>
+                    <input
+                      type="text"
+                      id="motivation"
+                      name="motivation"
+                      placeholder="Your motivation..."
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="time_investment">
+                      Where do you invest most of your time?
+                    </label>
+                    <input
+                      type="text"
+                      id="time_investment"
+                      name="time_investment"
+                      placeholder="(crypto/stocks/property/content creation etc…)?"
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="specialty">
+                      Please list areas of specialty/personal skill sets:
+                    </label>
+                    <input
+                      type="text"
+                      id="specialty"
+                      name="specialty"
+                      placeholder="Your specialties..."
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="communities">
+                      Are you part of any existing communities or businesses?
+                    </label>
+                    <input
+                      type="text"
+                      id="communities"
+                      name="communities"
+                      placeholder="List communities/businesses..."
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="synergy_interest">
+                      Why are you interested in Synergy?
+                    </label>
+                    <textarea
+                      id="synergy_interest"
+                      name="synergy_interest"
+                      placeholder="Share your thoughts..."
+                      required
+                    ></textarea>
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="terms_agree">
+                      Are you willing to pay a monthly subscription rate?
+                    </label>
+                    <input
+                      type="checkbox"
+                      id="terms_agree"
+                      name="terms_agree"
+                      required
+                    />
+                  </div>
+                  {/* <div className="form-field">
                    <label htmlFor="subscribe_newsletter">
-                     Would you like to reach?
+                     Would you like to receive updates?
                    </label>
                    <input
                      type="checkbox"
                      id="subscribe_newsletter"
                      name="subscribe_newsletter"
                    />
-                 </div>
-               </div>
-               <motion.button
-                 type="submit"
-                 className="submit-button"
-                 whileHover={{ scale: 1.05 }}
-                 whileTap={{ scale: 0.95 }}
-                 disabled={isSubmitting}
-               >
-                 {isSubmitting ? "Submitting..." : "Submit Application"}
-               </motion.button>
-             </form>
+                 </div> */}
+                </div>
+                <motion.button
+                  type="submit"
+                  className="submit-button"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Submitting..." : "Submit Application"}
+                </motion.button>
+              </form>
 
-             {notification && (
-               <div className="notification">
-                 <p>{notification}</p>
-               </div>
-             )}
-           </div>
-         </LazyLoadComponent>
-       </main>
-     </div>
-   </div>
- );
+              {notification && (
+                <div className="notification">
+                  <p>{notification}</p>
+                </div>
+              )}
+            </div>
+          </LazyLoadComponent>
+        </main>
+      </div>
+    </div>
+  );
 };
 
 function App() {
- const [showButton, setShowButton] = useState(false);
- const [enterSite, setEnterSite] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const [enterSite, setEnterSite] = useState(false);
 
- useEffect(() => {
-   const timer = setTimeout(() => {
-     setShowButton(true);
-   }, 3000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowButton(true);
+    }, 3000);
 
-   return () => clearTimeout(timer);
- }, []);
+    return () => clearTimeout(timer);
+  }, []);
 
- const handleEnter = () => {
-   setEnterSite(true);
- };
+  const handleEnter = () => {
+    setEnterSite(true);
+  };
 
- return (
-   <Router>
-     <div className="app-container">
-       <AnimatePresence>
-         {!enterSite && (
-           <motion.div
-             className="intro-container"
-             initial={{ opacity: 0 }}
-             animate={{ opacity: 1 }}
-             exit={{ opacity: 0 }}
-             transition={{ duration: 0.8 }}
-           >
-             <StarryBackground />
-             <SynergyText />
-             <EnergySpark />
-             {showButton && (
-               <motion.button
-                 className="explore-button"
-                 onClick={handleEnter}
-                 initial={{ opacity: 0, y: 20 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 transition={{ delay: 0.5 }}
-               >
-                 <span className="button-text">Enter Synergy</span>
-                 <span className="button-glow"></span>
-               </motion.button>
-             )}
-           </motion.div>
-         )}
-       </AnimatePresence>
+  return (
+    <Router>
+      <div className="app-container">
+        <AnimatePresence>
+          {!enterSite && (
+            <motion.div
+              className="intro-container"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <StarryBackground />
+              <SynergyText />
+              <EnergySpark />
+              {showButton && (
+                <motion.button
+                  className="explore-button"
+                  onClick={handleEnter}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <span className="button-text">Enter Synergy</span>
+                  <span className="button-glow"></span>
+                </motion.button>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-       <AnimatePresence>
-
-         {enterSite && (
-           <motion.div
-             className="site-content site-content-active"
-             initial={{ opacity: 0 }}
-             animate={{ opacity: 1 }}
-             exit={{ opacity: 0 }}
-             transition={{ duration: 1 }}
-           >
-             <Header />
-             <Routes>
-               <Route path="/" element={<SynergyLandingPage />} />
-               <Route path="/roadmap" element={<RoadmapPage />} />
-               <Route path="/contact" element={<ContactPage />} />
-             </Routes>
-           </motion.div>
-         )}
-       </AnimatePresence>
-     </div>
-   </Router>
- );
+        <AnimatePresence>
+          {enterSite && (
+            <motion.div
+              className="site-content site-content-active"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <Header />
+              <Routes>
+                <Route path="/" element={<SynergyLandingPage />} />
+                <Route path="/roadmap" element={<RoadmapPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+              </Routes>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </Router>
+  );
 }
 
 export default App;
