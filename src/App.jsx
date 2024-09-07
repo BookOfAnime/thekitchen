@@ -134,6 +134,7 @@ const EnergySpark = () => {
     />
   );
 };
+
 const Feature = ({ icon: Icon, title, description, delay }) => (
   <LazyLoadComponent delay={delay}>
     <motion.div
@@ -185,7 +186,6 @@ const Header = () => {
       <nav className={`nav-buttons ${isMenuOpen ? 'active' : ''}`}>
         <Link to="/" className="nav-button" onClick={() => setIsMenuOpen(false)}>Home</Link>
         <Link to="/roadmap" className="nav-button" onClick={() => setIsMenuOpen(false)}>Roadmap</Link>
-        {/* <Link to="/contact" className="nav-button" onClick={() => setIsMenuOpen(false)}>Contact</Link> */}
         <button onClick={scrollToApplicationForm} className="nav-button applications-open">Applications Open</button>
       </nav>
     </header>
@@ -240,7 +240,7 @@ const RoadmapPage = () => {
               animate={{
                 x: position.x,
                 y: position.y,
-                opacity: isMobile ? (index === activeIndex ? 1 : 0) : 1,
+                opacity: isMobile ? 1 : (index === activeIndex ? 1 : 0.7),
                 zIndex: index === activeIndex ? 1 : 0,
               }}
               transition={{ duration: 0.5 }}
@@ -254,12 +254,14 @@ const RoadmapPage = () => {
           );
         })}
       </div>
-      <div className="roadmap-controls">
-        <button className="next-button" onClick={handleNext}>
-          {isMobile ? "Next Phase" : "Next"}
-          <ChevronRight size={24} />
-        </button>
-      </div>
+      {!isMobile && (
+        <div className="roadmap-controls">
+          <button className="next-button" onClick={handleNext}>
+            Next Phase
+            <ChevronRight size={24} />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
@@ -353,40 +355,41 @@ const SynergyLandingPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData(e.target);
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    // Convert FormData to URL-encoded string
+    const data = Array.from(formData.entries())
+      .map(([key, value]) => {
+        // Handle checkbox
+        if (key === 'TermsAgree') {
+          value = value === 'on' ? 'Yes' : 'No';
+        }
+        return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+      })
+      .join('&');
 
-    fetch(
-      "https://script.google.com/macros/s/AKfycbz87IuCFNBdrPPdnfCwnqLqctZS5lGp3KcBvcPUsSN3mB2kBreKVi22KuSu_aOKIUY7dg/exec",
-      {
-        method: "POST",
-        body: new URLSearchParams(formData),
-      }
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.text();
-      })
-      .then((data) => {
-        console.log("Form submission response:", data);
-        if (data.startsWith("Success")) {
-          setNotification("Application submitted successfully!");
-          e.target.reset();
-        } else {
-          setNotification(
-            "Unexpected response. Please try again or contact support."
-          );
-        }
-      })
-      .catch((error) => {
-        console.error("Error submitting form:", error);
-        setNotification("Error submitting application. Please try again.");
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-        setTimeout(() => setNotification(""), 3000);
-      });
+    fetch("https://script.google.com/macros/s/AKfycbxMXF-FXPALf0T2AQtNuP-T9MiBXzReTUQmX-SbpvFmofO0Iue7-oIuQ3KHfxoY3cPRmg/exec", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: data,
+    })
+    .then(response => response.text())
+    .then(text => {
+      console.log("Response:", text);
+      setNotification("Application submitted successfully!");
+      form.reset();
+    })
+    .catch((error) => {
+      console.error("Error submitting form:", error);
+      setNotification("Error submitting application. Please try again.");
+    })
+    .finally(() => {
+      setIsSubmitting(false);
+      setTimeout(() => setNotification(""), 3000);
+    });
   };
 
   return (
@@ -451,14 +454,13 @@ const SynergyLandingPage = () => {
               <Feature
                 icon={Users}
                 title="Network"
-                description="Join a group of like-minded individuals who are hungry for trading success and spirited by entrepreneurship. Enhance your skill sets. 
-."
+                description="Join a group of like-minded individuals who are hungry for trading success and spirited by entrepreneurship. Enhance your skill sets."
                 delay={0.2}
               />
               <Feature
                 icon={Target}
                 title="Create"
-                description="We have members skilled in content creation, marketing , design, website development and coding. Help bring your idea to life. Build with others. Group meme coin and crypto projects. "
+                description="We have members skilled in content creation, marketing, design, website development and coding. Help bring your idea to life. Build with others. Group meme coin and crypto projects."
                 delay={0.3}
               />
             </div>
@@ -471,22 +473,12 @@ const SynergyLandingPage = () => {
               </div>
               <form onSubmit={handleSubmit} className="form">
                 <div className="form-grid">
-                  {/* <div className="form-field">
-                    <label htmlFor="name">Full Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      placeholder="John Doe"
-                      required
-                    />
-                  </div> */}
                   <div className="form-field">
                     <label htmlFor="email">Email Address</label>
                     <input
                       type="email"
                       id="email"
-                      name="email"
+                      name="Email"
                       placeholder="john@example.com"
                       required
                     />
@@ -498,21 +490,11 @@ const SynergyLandingPage = () => {
                     <input
                      type="text"
                      id="expertise"
-                     name="expertise"
+                     name="Expertise"
                      placeholder="e.g., AI, Blockchain"
                      required
                    />
                  </div>
-                 {/* <div className="form-field">
-                   <label htmlFor="experience">Years of Experience</label>
-                   <input
-                     type="number"
-                     id="experience"
-                     name="experience"
-                     placeholder="5"
-                     required
-                   />
-                 </div> */}
                  <div className="form-field">
                    <label htmlFor="twitter">
                      What is your Twitter handle?
@@ -520,7 +502,7 @@ const SynergyLandingPage = () => {
                    <input
                      type="text"
                      id="twitter"
-                     name="twitter"
+                     name="Twitter"
                      placeholder="@yourhandle"
                    />
                  </div>
@@ -531,7 +513,7 @@ const SynergyLandingPage = () => {
                    <input
                      type="text"
                      id="motivation"
-                     name="motivation"
+                     name="Motivation"
                      placeholder="Your motivation..."
                    />
                  </div>
@@ -542,7 +524,7 @@ const SynergyLandingPage = () => {
                    <input
                      type="text"
                      id="time_investment"
-                     name="time_investment"
+                     name="TimeInvestment"
                      placeholder="(crypto/stocks/property/content creation etc…)?"
                    />
                  </div>
@@ -553,7 +535,7 @@ const SynergyLandingPage = () => {
                    <input
                      type="text"
                      id="specialty"
-                     name="specialty"
+                     name="Specialty"
                      placeholder="Your specialties..."
                    />
                  </div>
@@ -564,7 +546,7 @@ const SynergyLandingPage = () => {
                    <input
                      type="text"
                      id="communities"
-                     name="communities"
+                     name="Communities"
                      placeholder="List communities/businesses..."
                    />
                  </div>
@@ -574,7 +556,7 @@ const SynergyLandingPage = () => {
                    </label>
                    <textarea
                      id="synergy_interest"
-                     name="synergy_interest"
+                     name="SynergyInterest"
                      placeholder="Share your thoughts..."
                      required
                    ></textarea>
@@ -586,20 +568,10 @@ const SynergyLandingPage = () => {
                    <input
                      type="checkbox"
                      id="terms_agree"
-                     name="terms_agree"
+                     name="TermsAgree"
                      required
                    />
                  </div>
-                 {/* <div className="form-field">
-                   <label htmlFor="subscribe_newsletter">
-                     Would you like to receive updates?
-                   </label>
-                   <input
-                     type="checkbox"
-                     id="subscribe_newsletter"
-                     name="subscribe_newsletter"
-                   />
-                 </div> */}
                </div>
                <motion.button
                  type="submit"
