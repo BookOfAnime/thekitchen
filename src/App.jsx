@@ -472,7 +472,7 @@ const SynergyLandingPage = () => {
               </div>
               <form onSubmit={handleSubmit} className="form">
                 <div className="form-grid">
-                  <div className="form-field">
+                  {/* <div className="form-field">
                     <label htmlFor="email">Email Address</label>
                     <input
                       type="email"
@@ -481,7 +481,19 @@ const SynergyLandingPage = () => {
                       placeholder="john@example.com"
                       required
                     />
-                  </div>
+                  </div> */}
+                   <div className="form-field">
+                    <label htmlFor="years">
+                    How many years of experience do you have?
+                    </label>
+                    <input
+                     type="number"
+                     id="years"
+                     name="years"
+                     placeholder="1,2, etc"
+                     required
+                   />
+                 </div>
                   <div className="form-field">
                     <label htmlFor="expertise">
                     Are you studying, and if so what are you studying? 

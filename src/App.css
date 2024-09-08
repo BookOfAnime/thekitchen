@@ -521,6 +521,8 @@ textarea {
   padding: 2rem;
   box-sizing: border-box;
   padding-top: 120px;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .circular-roadmap {
@@ -536,8 +538,8 @@ textarea {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 1000px;
-  height: 1000px;
+  width: 3300px;
+  height: 33000px;
   background-image: url('/logo.svg');
   background-size: contain;
   background-repeat: no-repeat;
