@@ -416,9 +416,9 @@ const SynergyLandingPage = () => {
                 and creators with the goal to combine our skill sets and
                 passions for a greater combined effect.
               </p>
-              <h3 className="glow">Our Core Values</h3>
-              <ul>
-                <li>
+              <h3 className="glow core-values">Our Core Values</h3>
+              <ul className="core-values">
+                <li >
                   <TrendingUp size={16} /> Innovation: We push the boundaries of
                   what's possible.
                 </li><li>
