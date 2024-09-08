@@ -197,8 +197,8 @@ const RoadmapPage = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const roadmapItems = [
     { phase: "Phase 1", title: "Community Building", description: "Inaugural membership application process" },
-    { phase: "Phase 2", title: "Platform Development", description: " Connecting and fostering collaborative relationships" },
-    { phase: "Phase 3", title: "Expansion", description: "Enhancing members opportunities through networks " },
+    { phase: "Phase 2", title: "Platform Development", description: "Connecting and fostering collaborative relationships" },
+    { phase: "Phase 3", title: "Expansion", description: "Enhancing members opportunities through networks" },
     { phase: "Phase 4", title: "Global Integration", description: "Expansion into multi-network agency platform" },
   ];
 
@@ -236,14 +236,14 @@ const RoadmapPage = () => {
             <motion.div
               key={item.phase}
               className={`roadmap-item ${index === activeIndex ? 'active' : ''}`}
-              initial={false}
-              animate={{
+              initial={isMobile ? { opacity: 0, y: 20 } : false}
+              animate={isMobile ? { opacity: 1, y: 0 } : {
                 x: position.x,
                 y: position.y,
-                opacity: isMobile ? 1 : (index === activeIndex ? 1 : 0.7),
+                opacity: index === activeIndex ? 1 : 0.7,
                 zIndex: index === activeIndex ? 1 : 0,
               }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, delay: isMobile ? index * 0.2 : 0 }}
             >
               <div className="item-content">
                 <h3 className="roadmap-phase">{item.phase}</h3>
@@ -421,8 +421,7 @@ const SynergyLandingPage = () => {
                 <li>
                   <TrendingUp size={16} /> Innovation: We push the boundaries of
                   what's possible.
-                </li>
-                <li>
+                </li><li>
                   <TrendingUp size={16} /> Growth: We constantly evolve and
                   adapt to stay ahead.
                 </li>

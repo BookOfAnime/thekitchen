@@ -182,7 +182,7 @@ p, span, label, input, textarea, button, .nav-button, .feature p, .roadmap-descr
   width: 100%;
   min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
-  overflow-y: auto;
+  overflow-y: visible; /* Changed from auto to visible */
   z-index: 1;
 }
 
@@ -468,11 +468,11 @@ textarea {
   width: 100%;
   max-width: 300px;
 }
-
 .submit-button:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 15px rgba(182, 27, 203, 0.4);
 }
+
 .section-divider {
   height: 1px;
   background: linear-gradient(to right, transparent, var(--text-color), transparent);
