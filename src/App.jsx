@@ -402,7 +402,7 @@ const SynergyLandingPage = () => {
             <section className="welcome-section">
               <h1 className="title glow">Welcome to Synergy</h1>
               <p className="subtitle">
-                The combined effect of working together to produce a greater
+               <i>/noun</i> The combined effect of working together to produce a greater
                 effect than the sum of their individual effects.
               </p>
             </section>
@@ -434,10 +434,7 @@ const SynergyLandingPage = () => {
                   than the best in all we do.
                 </li>
               </ul>
-              <p>
-                Join Synergy and be part of a movement that's shaping the future
-                of innovation!
-              </p>
+            
             </div>
           </LazyLoadComponent>
 
@@ -447,19 +444,19 @@ const SynergyLandingPage = () => {
               <Feature
                 icon={TrendingUp}
                 title="Learn"
-                description="Technical/Fundamental analysis, identifying key alpha/strategies, economic outlook and much more."
+                description=""
                 delay={0.1}
               />
               <Feature
                 icon={Users}
                 title="Network"
-                description="Join a group of like-minded individuals who are hungry for trading success and spirited by entrepreneurship. Enhance your skill sets."
+                description=""
                 delay={0.2}
               />
               <Feature
                 icon={Target}
                 title="Create"
-                description="We have members skilled in content creation, marketing, design, website development and coding. Help bring your idea to life. Build with others. Group meme coin and crypto projects."
+                description=""
                 delay={0.3}
               />
             </div>
