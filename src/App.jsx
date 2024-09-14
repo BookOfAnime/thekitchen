@@ -218,7 +218,7 @@ const RoadmapPage = () => {
   const calculatePosition = (index) => {
     if (isMobile) return { x: 0, y: 0 };
     const angle = ((index - activeIndex) * 90 + 360) % 360;
-    const radius = 200;
+    const radius = 300;
     const x = Math.cos((angle * Math.PI) / 180) * radius;
     const y = Math.sin((angle * Math.PI) / 180) * radius;
     return { x, y };
