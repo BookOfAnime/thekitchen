@@ -1,7 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { TrendingUp, Users, Target, Mail, Phone, MapPin, Menu, ChevronRight } from "lucide-react";
-import { BrowserRouter as Router, Route, Link, Routes, useNavigate } from "react-router-dom";
+import {
+  TrendingUp,
+  Users,
+  Target,
+  Mail,
+  Phone,
+  MapPin,
+  Menu,
+  ChevronRight,
+  Users as Community,
+  GitCommit as Commitment,
+  Layers as Create,
+} from "lucide-react";
+import { FaTwitter, FaDiscord } from "react-icons/fa";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
 
 const LazyLoadComponent = ({ children, delay = 0 }) => {
@@ -177,16 +196,29 @@ const Header = () => {
   return (
     <header className="header">
       <div className="logo">
-        <SynergyLogo className='one'/>
+        <SynergyLogo className="one" />
         <span className="header-title">Synergy</span>
       </div>
       <button className="menu-toggle" onClick={toggleMenu}>
         <Menu size={24} />
       </button>
-      <nav className={`nav-buttons ${isMenuOpen ? 'active' : ''}`}>
-        <Link to="/" className="nav-button" onClick={() => setIsMenuOpen(false)}>Home</Link>
-        <Link to="/roadmap" className="nav-button" onClick={() => setIsMenuOpen(false)}>Roadmap</Link>
-        <button onClick={scrollToApplicationForm} className="nav-button applications-open">Applications Open</button>
+      <nav className={`nav-buttons ${isMenuOpen ? "active" : ""}`}>
+        <Link to="/" className="nav-button" onClick={() => setIsMenuOpen(false)}>
+          Home
+        </Link>
+        <Link
+          to="/roadmap"
+          className="nav-button"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          Roadmap
+        </Link>
+        <button
+          onClick={scrollToApplicationForm}
+          className="nav-button applications-open"
+        >
+          Applications Open
+        </button>
       </nav>
     </header>
   );
@@ -196,10 +228,26 @@ const RoadmapPage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const roadmapItems = [
-    { phase: "Phase 1", title: "Community Building", description: "Inaugural membership application process" },
-    { phase: "Phase 2", title: "Platform Development", description: "Connecting and fostering collaborative relationships" },
-    { phase: "Phase 3", title: "Expansion", description: "Enhancing members opportunities through networks" },
-    { phase: "Phase 4", title: "Global Integration", description: "Expansion into multi-network agency platform" },
+    {
+      phase: "Phase 1",
+      title: "Community Building",
+      description: "Inaugural membership application process",
+    },
+    {
+      phase: "Phase 2",
+      title: "Platform Development",
+      description: "Connecting and fostering collaborative relationships",
+    },
+    {
+      phase: "Phase 3",
+      title: "Expansion",
+      description: "Enhancing members opportunities through networks",
+    },
+    {
+      phase: "Phase 4",
+      title: "Global Integration",
+      description: "Expansion into multi-network agency platform",
+    },
   ];
 
   useEffect(() => {
@@ -207,8 +255,8 @@ const RoadmapPage = () => {
       setIsMobile(window.innerWidth <= 768);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleNext = () => {
@@ -235,14 +283,18 @@ const RoadmapPage = () => {
           return (
             <motion.div
               key={item.phase}
-              className={`roadmap-item ${index === activeIndex ? 'active' : ''}`}
+              className={`roadmap-item ${index === activeIndex ? "active" : ""}`}
               initial={isMobile ? { opacity: 0, y: 20 } : false}
-              animate={isMobile ? { opacity: 1, y: 0 } : {
-                x: position.x,
-                y: position.y,
-                opacity: index === activeIndex ? 1 : 0.7,
-                zIndex: index === activeIndex ? 1 : 0,
-              }}
+              animate={
+                isMobile
+                  ? { opacity: 1, y: 0 }
+                  : {
+                      x: position.x,
+                      y: position.y,
+                      opacity: index === activeIndex ? 1 : 0.7,
+                      zIndex: index === activeIndex ? 1 : 0,
+                    }
+              }
               transition={{ duration: 0.5, delay: isMobile ? index * 0.2 : 0 }}
             >
               <div className="item-content">
@@ -290,7 +342,10 @@ const ContactPage = () => {
       <div className="contact-container">
         <div className="contact-info">
           <h2>Get in Touch</h2>
-          <p>We'd love to hear from you. Reach out to us using the information below or fill out the contact form.</p>
+          <p>
+            We'd love to hear from you. Reach out to us using the information
+            below or fill out the contact form.
+          </p>
           <div className="contact-details">
             <div className="contact-item">
               <Mail size={24} />
@@ -339,7 +394,9 @@ const ContactPage = () => {
               required
             ></textarea>
           </div>
-          <button type="submit" className="submit-button">Send Message</button>
+          <button type="submit" className="submit-button">
+            Send Message
+          </button>
         </form>
       </div>
     </div>
@@ -357,39 +414,42 @@ const SynergyLandingPage = () => {
 
     const form = e.target;
     const formData = new FormData(form);
-    
+
     // Convert FormData to URL-encoded string
     const data = Array.from(formData.entries())
       .map(([key, value]) => {
         // Handle checkbox
-        if (key === 'TermsAgree') {
-          value = value === 'on' ? 'Yes' : 'No';
+        if (key === "TermsAgree") {
+          value = value === "on" ? "Yes" : "No";
         }
         return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
       })
-      .join('&');
+      .join("&");
 
-    fetch("https://script.google.com/macros/s/AKfycbxMXF-FXPALf0T2AQtNuP-T9MiBXzReTUQmX-SbpvFmofO0Iue7-oIuQ3KHfxoY3cPRmg/exec", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: data,
-    })
-    .then(response => response.text())
-    .then(text => {
-      console.log("Response:", text);
-      setNotification("Application submitted successfully!");
-      form.reset();
-    })
-    .catch((error) => {
-      console.error("Error submitting form:", error);
-      setNotification("Error submitting application. Please try again.");
-    })
-    .finally(() => {
-      setIsSubmitting(false);
-      setTimeout(() => setNotification(""), 3000);
-    });
+    fetch(
+      "https://script.google.com/macros/s/AKfycbxMXF-FXPALf0T2AQtNuP-T9MiBXzReTUQmX-SbpvFmofO0Iue7-oIuQ3KHfxoY3cPRmg/exec",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: data,
+      }
+    )
+      .then((response) => response.text())
+      .then((text) => {
+        console.log("Response:", text);
+        setNotification("Application submitted successfully!");
+        form.reset();
+      })
+      .catch((error) => {
+        console.error("Error submitting form:", error);
+        setNotification("Error submitting application. Please try again.");
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+        setTimeout(() => setNotification(""), 3000);
+      });
   };
 
   return (
@@ -402,8 +462,8 @@ const SynergyLandingPage = () => {
             <section className="welcome-section">
               <h1 className="title glow">Welcome to Synergy</h1>
               <p className="subtitle">
-               <i>/noun</i> The combined effect of working together to produce a greater
-                effect than the sum of their individual effects.
+                <i>/noun</i> The combined effect of working together to produce a
+                greater effect than the sum of their individual effects.
               </p>
             </section>
           </LazyLoadComponent>
@@ -412,54 +472,53 @@ const SynergyLandingPage = () => {
             <div className="about-us">
               <h2 className="glow">About Synergy</h2>
               <p>
-                We are an exclusive group of entrepreneurs, investors, traders
-                and creators with the goal to combine our skill sets and
-                passions for a greater combined effect.
+                We are an exclusive group of entrepreneurs, investors, traders,
+                and creators with the goal to combine our skill sets and passions
+                for a greater combined effect.
               </p>
               <h3 className="glow core-values">Our Core Values</h3>
               <ul className="core-values">
-                <li >
+                <li>
                   <TrendingUp size={16} /> Innovation: We push the boundaries of
                   what's possible.
-                </li><li>
-                  <TrendingUp size={16} /> Growth: We constantly evolve and
-                  adapt to stay ahead.
+                </li>
+                <li>
+                  <TrendingUp size={16} /> Growth: We constantly evolve and adapt
+                  to stay ahead.
                 </li>
                 <li>
                   <Users size={16} /> Collaboration: We believe in the power of
                   collective intelligence.
                 </li>
                 <li>
-                  <Target size={16} /> Excellence: We strive for nothing less
-                  than the best in all we do.
+                  <Target size={16} /> Excellence: We strive for nothing less than
+                  the best in all we do.
                 </li>
               </ul>
-            
             </div>
           </LazyLoadComponent>
 
           <LazyLoadComponent delay={0.3}>
             <h1 className="section-title glow">Why Choose Synergy?</h1>
             <div className="features">
-              <Feature
-                icon={TrendingUp}
-                title="Learn"
-                description=""
-                delay={0.1}
-              />
-              <Feature
-                icon={Users}
-                title="Network"
-                description=""
-                delay={0.2}
-              />
-              <Feature
-                icon={Target}
-                title="Create"
-                description=""
-                delay={0.3}
-              />
-            </div>
+            <Feature
+  icon={Community}
+  title="Community"
+  description="We aim to create an environment of like minded people who help each other and strive for success."
+  delay={0.1}
+/>
+<Feature 
+  icon={Commitment} 
+  title="Commitment" 
+  description="Our members are committed to continuously learn and improve." 
+  delay={0.2} 
+/>
+<Feature 
+  icon={Create} 
+  title="Create" 
+  description="We value combining our member's unique skillsets to enhance individual and group projects." 
+  delay={0.3} 
+/> </div>
           </LazyLoadComponent>
 
           <LazyLoadComponent delay={0.2}>
@@ -469,210 +528,222 @@ const SynergyLandingPage = () => {
               </div>
               <form onSubmit={handleSubmit} className="form">
                 <div className="form-grid">
-                  {/* <div className="form-field">
-                    <label htmlFor="email">Email Address</label>
+                  <div className="form-field">
+                    <label htmlFor="years">
+                      How many years of experience do you have?
+                    </label>
                     <input
-                      type="email"
-                      id="email"
-                      name="Email"
-                      placeholder="john@example.com"
+                      type="number"
+                      id="years"
+                      name="years"
+                      placeholder="1,2, etc"
                       required
                     />
-                  </div> */}
-                   <div className="form-field">
-                    <label htmlFor="years">
-                    How many years of experience do you have?
-                    </label>
-                    <input
-                     type="number"
-                     id="years"
-                     name="years"
-                     placeholder="1,2, etc"
-                     required
-                   />
-                 </div>
+                  </div>
                   <div className="form-field">
                     <label htmlFor="expertise">
-                    Are you studying, and if so what are you studying? 
+                      Are you studying, and if so what are you studying?
                     </label>
                     <input
-                     type="text"
-                     id="expertise"
-                     name="Expertise"
-                     placeholder="e.g., AI, Blockchain"
-                     required
-                   />
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="twitter">
-                     What is your Twitter handle?
-                   </label>
-                   <input
-                     type="text"
-                     id="twitter"
-                     name="Twitter"
-                     placeholder="@yourhandle"
-                   />
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="motivation">
-                     What motivates you to be successful?
-                   </label>
-                   <input
-                     type="text"
-                     id="motivation"
-                     name="Motivation"
-                     placeholder="Your motivation..."
-                   />
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="time_investment">
-                     Where do you invest most of your time?
-                   </label>
-                   <input
-                     type="text"
-                     id="time_investment"
-                     name="TimeInvestment"
-                     placeholder="(crypto/stocks/property/content creation etc…)?"
-                   />
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="specialty">
-                     Please list areas of specialty/personal skill sets:
-                   </label>
-                   <input
-                     type="text"
-                     id="specialty"
-                     name="Specialty"
-                     placeholder="Your specialties..."
-                   />
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="communities">
-                     Are you part of any existing communities or businesses?
-                   </label>
-                   <input
-                     type="text"
-                     id="communities"
-                     name="Communities"
-                     placeholder="List communities/businesses..."
-                   />
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="synergy_interest">
-                     Why are you interested in Synergy?
-                   </label>
-                   <textarea
-                     id="synergy_interest"
-                     name="SynergyInterest"
-                     placeholder="Share your thoughts..."
-                     required
-                   ></textarea>
-                 </div>
-                 <div className="form-field">
-                   <label htmlFor="terms_agree">
-                   Are you willing to pay a monthly subscription rate?
-                   </label>
-                   <input
-                     type="checkbox"
-                     id="terms_agree"
-                     name="TermsAgree"
-                     required
-                   />
-                 </div>
-               </div>
-               <motion.button
-                 type="submit"
-                 className="submit-button"
-                 whileHover={{ scale: 1.05 }}
-                 whileTap={{ scale: 0.95 }}
-                 disabled={isSubmitting}
-               >
-                 {isSubmitting ? "Submitting..." : "Submit Application"}
-               </motion.button>
-             </form>
+                      type="text"
+                      id="expertise"
+                      name="Expertise"
+                      placeholder="e.g., AI, Blockchain"
+                      required
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="twitter">
+                      What is your Twitter handle?
+                    </label>
+                    <input
+                      type="text"
+                      id="twitter"
+                      name="Twitter"
+                      placeholder="@yourhandle"
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="motivation">
+                      What motivates you to be successful?
+                    </label>
+                    <input
+                      type="text"
+                      id="motivation"
+                      name="Motivation"
+                      placeholder="Your motivation..."
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="time_investment">
+                      Where do you invest most of your time?
+                    </label>
+                    <input
+                      type="text"
+                      id="time_investment"
+                      name="TimeInvestment"
+                      placeholder="(crypto/stocks/property/content creation etc…)?"
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="specialty">
+                      Please list areas of specialty/personal skill sets:
+                    </label>
+                    <input
+                      type="text"
+                      id="specialty"
+                      name="Specialty"
+                      placeholder="Your specialties..."
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="communities">
+                      Are you part of any existing communities or businesses?
+                    </label>
+                    <input
+                      type="text"
+                      id="communities"
+                      name="Communities"
+                      placeholder="List communities/businesses..."
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="synergy_interest">
+                      Why are you interested in Synergy?
+                    </label>
+                    <textarea
+                      id="synergy_interest"
+                      name="SynergyInterest"
+                      placeholder="Share your thoughts..."
+                      required
+                    ></textarea>
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="terms_agree">
+                      Are you willing to pay a monthly subscription rate?
+                    </label>
+                    <input
+                      type="checkbox"
+                      id="terms_agree"
+                      name="TermsAgree"
+                      required
+                    />
+                  </div>
+                </div>
+                <motion.button
+                  type="submit"
+                  className="submit-button"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Submitting..." : "Submit Application"}
+                </motion.button>
+              </form>
 
-             {notification && (
-               <div className="notification">
-                 <p>{notification}</p>
-               </div>
-             )}
-           </div>
-         </LazyLoadComponent>
-       </main>
-     </div>
-   </div>
- );
+              {notification && (
+                <div className="notification">
+                  <p>{notification}</p>
+                </div>
+              )}
+            </div>
+          </LazyLoadComponent>
+
+          {/* Footer Section */}
+          <LazyLoadComponent delay={0.2}>
+            <footer className="footer">
+              <div className="footer-links">
+                <a
+                  href="https://twitter.com/YOUR_TWITTER_HANDLE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaTwitter size={32} />
+                </a>
+                <a
+                  href="https://discord.gg/YOUR_DISCORD_INVITE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaDiscord size={32} />
+                </a>
+              </div>
+            </footer>
+          </LazyLoadComponent>
+        </main>
+      </div>
+    </div>
+  );
 };
 
 function App() {
- const [showButton, setShowButton] = useState(false);
- const [enterSite, setEnterSite] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const [enterSite, setEnterSite] = useState(false);
 
- useEffect(() => {
-   const timer = setTimeout(() => {
-     setShowButton(true);
-   }, 3000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowButton(true);
+    }, 3000);
 
-   return () => clearTimeout(timer);
- }, []);
+    return () => clearTimeout(timer);
+  }, []);
 
- const handleEnter = () => {
-   setEnterSite(true);
- };
+  const handleEnter = () => {
+    setEnterSite(true);
+  };
 
- return (
-   <Router>
-     <div className="app-container">
-       <AnimatePresence>
-         {!enterSite && (
-           <motion.div
-             className="intro-container"
-             initial={{ opacity: 0 }}
-             animate={{ opacity: 1 }}
-             exit={{ opacity: 0 }}
-             transition={{ duration: 0.8 }}
-           >
-             <StarryBackground />
-             <SynergyText />
-             <EnergySpark />
-             {showButton && (
-               <motion.button
-                 className="explore-button"
-                 onClick={handleEnter}
-                 initial={{ opacity: 0, y: 20 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 transition={{ delay: 0.5 }}
-               >
-                 <span className="button-text">Enter Synergy</span>
-                 <span className="button-glow"></span>
-               </motion.button>
-             )}
-           </motion.div>
-         )}
-       </AnimatePresence>
+  return (
+    <Router>
+      <div className="app-container">
+        <AnimatePresence>
+          {!enterSite && (
+            <motion.div
+              className="intro-container"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <StarryBackground />
+              <SynergyText />
+              <EnergySpark />
+              {showButton && (
+                <motion.button
+                  className="explore-button"
+                  onClick={handleEnter}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <span className="button-text">Enter Synergy</span>
+                  <span className="button-glow"></span>
+                </motion.button>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-       <AnimatePresence>
-         {enterSite && (
-           <motion.div
-             className="site-content site-content-active"
-             initial={{ opacity: 0 }}
-             animate={{ opacity: 1 }}
-             exit={{ opacity: 0 }}
-             transition={{ duration: 1 }}
-           >
-             <Header />
-             <Routes>
-               <Route path="/" element={<SynergyLandingPage />} />
-               <Route path="/roadmap" element={<RoadmapPage />} />
-               <Route path="/contact" element={<ContactPage />} />
-             </Routes>
-           </motion.div>
-         )}
-       </AnimatePresence>
-     </div>
-   </Router>
- );
+        <AnimatePresence>
+          {enterSite && (
+            <motion.div
+              className="site-content site-content-active"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <Header />
+              <Routes>
+                <Route path="/" element={<SynergyLandingPage />} />
+                <Route path="/roadmap" element={<RoadmapPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+              </Routes>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </Router>
+  );
 }
 
 export default App;

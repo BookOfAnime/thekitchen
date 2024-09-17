@@ -182,7 +182,7 @@ p, span, label, input, textarea, button, .nav-button, .feature p, .roadmap-descr
   width: 100%;
   min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
-  overflow-y: visible; /* Changed from auto to visible */
+  overflow-y: visible;
   z-index: 1;
 }
 
@@ -645,6 +645,35 @@ textarea {
 
 .next-button svg, .prev-button svg {
   margin-right: 0.5rem;
+}
+
+/* Footer Styles */
+.footer {
+  margin-top: 4rem;
+  padding: 2rem 0;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.footer-links a {
+  color: var(--light-text-color);
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--text-color);
+}
+
+/* Optional: Adjust icon size on smaller screens */
+@media screen and (max-width: 480px) {
+  .footer-links a svg {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 /* Mobile styles */
