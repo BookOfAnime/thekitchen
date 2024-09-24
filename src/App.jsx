@@ -12,6 +12,7 @@ import {
   Users as Community,
   GitCommit as Commitment,
   Layers as Create,
+  Star,
 } from "lucide-react";
 import { FaTwitter, FaDiscord } from "react-icons/fa";
 import {
@@ -23,6 +24,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 
+// Lazy loading component
 const LazyLoadComponent = ({ children, delay = 0 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
@@ -39,6 +41,7 @@ const LazyLoadComponent = ({ children, delay = 0 }) => {
   );
 };
 
+// Starry background component
 const StarryBackground = () => {
   const canvasRef = useRef(null);
 
@@ -111,6 +114,7 @@ const StarryBackground = () => {
   return <canvas ref={canvasRef} className="starry-background" />;
 };
 
+// Synergy title animation
 const SynergyText = () => {
   const letters = "Synergy".split("");
 
@@ -136,6 +140,7 @@ const SynergyText = () => {
   );
 };
 
+// Energy spark animation
 const EnergySpark = () => {
   return (
     <motion.div
@@ -154,6 +159,7 @@ const EnergySpark = () => {
   );
 };
 
+// Feature section
 const Feature = ({ icon: Icon, title, description, delay }) => (
   <LazyLoadComponent delay={delay}>
     <motion.div
@@ -170,10 +176,12 @@ const Feature = ({ icon: Icon, title, description, delay }) => (
   </LazyLoadComponent>
 );
 
+// Synergy logo
 const SynergyLogo = () => (
   <img src="/logo.svg" alt="Synergy Logo" className="synergy-logo" />
 );
 
+// Header component
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -213,6 +221,13 @@ const Header = () => {
         >
           Roadmap
         </Link>
+        <Link
+          to="/about"
+          className="nav-button"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          About Us
+        </Link>
         <button
           onClick={scrollToApplicationForm}
           className="nav-button applications-open"
@@ -224,6 +239,7 @@ const Header = () => {
   );
 };
 
+// Roadmap component
 const RoadmapPage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -318,91 +334,7 @@ const RoadmapPage = () => {
   );
 };
 
-const ContactPage = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-    setFormData({ name: "", email: "", message: "" });
-  };
-
-  return (
-    <div className="contact-page">
-      <StarryBackground />
-      <h1 className="section-title glow">Contact Us</h1>
-      <div className="contact-container">
-        <div className="contact-info">
-          <h2>Get in Touch</h2>
-          <p>
-            We'd love to hear from you. Reach out to us using the information
-            below or fill out the contact form.
-          </p>
-          <div className="contact-details">
-            <div className="contact-item">
-              <Mail size={24} />
-              <span>info@synergy.com</span>
-            </div>
-            <div className="contact-item">
-              <Phone size={24} />
-              <span>+1 (123) 456-7890</span>
-            </div>
-            <div className="contact-item">
-              <MapPin size={24} />
-              <span>123 Synergy St, Innovation City, 12345</span>
-            </div>
-          </div>
-        </div>
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <div className="form-field">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-field">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-field">
-            <label htmlFor="message">Message</label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-            ></textarea>
-          </div>
-          <button type="submit" className="submit-button">
-            Send Message
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-};
-
+// Landing page component
 const SynergyLandingPage = () => {
   const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -415,10 +347,8 @@ const SynergyLandingPage = () => {
     const form = e.target;
     const formData = new FormData(form);
 
-    // Convert FormData to URL-encoded string
     const data = Array.from(formData.entries())
       .map(([key, value]) => {
-        // Handle checkbox
         if (key === "TermsAgree") {
           value = value === "on" ? "Yes" : "No";
         }
@@ -501,24 +431,25 @@ const SynergyLandingPage = () => {
           <LazyLoadComponent delay={0.3}>
             <h1 className="section-title glow">Why Choose Synergy?</h1>
             <div className="features">
-            <Feature
-  icon={Community}
-  title="Community"
-  description="We aim to create an environment of like minded people who help each other and strive for success."
-  delay={0.1}
-/>
-<Feature 
-  icon={Commitment} 
-  title="Commitment" 
-  description="Our members are committed to continuously learn and improve." 
-  delay={0.2} 
-/>
-<Feature 
-  icon={Create} 
-  title="Create" 
-  description="We value combining our member's unique skillsets to enhance individual and group projects." 
-  delay={0.3} 
-/> </div>
+              <Feature
+                icon={Community}
+                title="Community"
+                description="We aim to create an environment of like minded people who help each other and strive for success."
+                delay={0.1}
+              />
+              <Feature
+                icon={Commitment}
+                title="Commitment"
+                description="Our members are committed to continuously learn and improve."
+                delay={0.2}
+              />
+              <Feature
+                icon={Create}
+                title="Create"
+                description="We value combining our member's unique skillsets to enhance individual and group projects."
+                delay={0.3}
+              />
+            </div>
           </LazyLoadComponent>
 
           <LazyLoadComponent delay={0.2}>
@@ -527,7 +458,7 @@ const SynergyLandingPage = () => {
                 <h2 className="form-title glow">Membership Application</h2>
               </div>
               <form onSubmit={handleSubmit} className="form">
-                <div className="form-grid">
+              <div className="form-grid">
                   <div className="form-field">
                     <label htmlFor="years">
                       How many years of experience do you have?
@@ -676,6 +607,165 @@ const SynergyLandingPage = () => {
   );
 };
 
+// New About Us component
+const AboutUs = () => {
+  const testimonials = [
+    { id: 1, text: "Synergy has completely transformed my trading strategy!", author: "John D." },
+    { id: 2, text: "The networking opportunities here are unparalleled.", author: "Sarah M." },
+    { id: 3, text: "I've found amazing collaborators for my projects.", author: "Mike R." },
+  ];
+
+  const AboutFeature = ({ icon: Icon, title, items }) => (
+    <LazyLoadComponent>
+      <motion.div
+        className="about-feature"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <div className="feature-icon">
+          <Icon size={32} />
+        </div>
+        <h3 className="feature-title glow">{title}</h3>
+        <ul>
+          {items.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      </motion.div>
+    </LazyLoadComponent>
+  );
+
+  const TestimonialCard = ({ text, author }) => (
+    <LazyLoadComponent>
+      <motion.div 
+        className="testimonial-card"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <p>"{text}"</p>
+        <span>- {author}</span>
+      </motion.div>
+    </LazyLoadComponent>
+  );
+
+  const ImageGallery = () => {
+    const [cardOrder, setCardOrder] = useState([1, 2, 3, 4, 5]);
+
+    const handleCardClick = (clickedCard) => {
+      const newOrder = [
+        clickedCard,
+        ...cardOrder.filter(card => card !== clickedCard)
+      ];
+      setCardOrder(newOrder);
+    };
+
+    return (
+      <LazyLoadComponent>
+        <div className="main">
+          {cardOrder.map((cardNumber, index) => (
+            <div 
+              key={cardNumber}
+              className="card" 
+              id={`c${cardNumber}`}
+              style={{backgroundImage: `url('/card${cardNumber}.webp')`, zIndex: 5 - index}}
+              onClick={() => handleCardClick(cardNumber)}
+            ></div>
+          ))}
+        </div>
+      </LazyLoadComponent>
+    );
+  };
+
+  const AdditionalGallery = () => {
+    const images = [
+      '/gallery1.webp',
+      '/gallery2.webp',
+      '/gallery3.webp',
+      '/gallery4.webp',
+      '/gallery5.webp',
+      '/gallery6.webp',
+    ];
+
+    return (
+      <LazyLoadComponent>
+        <div className="additional-gallery">
+          {images.map((image, index) => (
+            <motion.div
+              key={index}
+              className="gallery-item"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <img src={image} alt={`Gallery image ${index + 1}`} />
+            </motion.div>
+          ))}
+        </div>
+      </LazyLoadComponent>
+    );
+  };
+
+  return (
+    <div className="about-us-page">
+      <StarryBackground />
+      <motion.div
+        className="content-wrapper"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
+        <h1 className="section-title glow">SYNERGY INFO</h1>
+        
+        <section className="about-section">
+          <h2 className="subsection-title glow">What can you expect?</h2>
+          <p>Currently we are using a discord server to connect members, with future goals to expand our digital network into a Web3 agency, connecting skilled members to jobs, investors and VC's.</p>
+        </section>
+
+        <div className="features-grid">
+          <AboutFeature 
+            icon={TrendingUp} 
+            title="Trading" 
+            items={[
+              "Live VC trading across crypto, meme coins and stocks/options",
+              "Technical analysis masterclasses and discussions",
+              "Suite of bots for market analysis, whale tracking and insider plays"
+            ]}
+          />
+          <AboutFeature 
+            icon={Users} 
+            title="Networking" 
+            items={[
+              "Skilled members across crypto trading, stocks and broader financial markets",
+              "Speak with designers, website developers, coders and creatives",
+              "Future in-person meets and events"
+            ]}
+          />
+          <AboutFeature 
+            icon={Create} 
+            title="Creative" 
+            items={[
+              "Memecoin studio for group launches",
+              "Pitch ideas and collaborate on group and individual projects",
+              "Trade with us, fund your idea, get connected with skilled individuals"
+            ]}
+          />
+        </div>
+
+        <section className="testimonials-section">
+          <h2 className="subsection-title glow">Testimonials & Wins</h2>
+          <div className="testimonials-grid">
+            {testimonials.map((testimonial) => (
+              <TestimonialCard key={testimonial.id} {...testimonial} />
+            ))}
+          </div>
+          <ImageGallery />
+          <AdditionalGallery />
+        </section>
+      </motion.div>
+    </div>
+  );
+};
+
+// Main App component
 function App() {
   const [showButton, setShowButton] = useState(false);
   const [enterSite, setEnterSite] = useState(false);
@@ -689,7 +779,7 @@ function App() {
   }, []);
 
   const handleEnter = () => {
-    setEnterSite(true);
+    // setEnterSite(true);
   };
 
   return (
@@ -715,7 +805,7 @@ function App() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <span className="button-text">Enter Synergy</span>
+                  <span className="button-text">Coming Soon</span>
                   <span className="button-glow"></span>
                 </motion.button>
               )}
@@ -736,7 +826,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<SynergyLandingPage />} />
                 <Route path="/roadmap" element={<RoadmapPage />} />
-                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/about" element={<AboutUs />} />
               </Routes>
             </motion.div>
           )}
