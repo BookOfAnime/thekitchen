@@ -211,7 +211,11 @@ const Header = () => {
         <Menu size={24} />
       </button>
       <nav className={`nav-buttons ${isMenuOpen ? "active" : ""}`}>
-        <Link to="/" className="nav-button" onClick={() => setIsMenuOpen(false)}>
+        <Link
+          to="/"
+          className="nav-button"
+          onClick={() => setIsMenuOpen(false)}
+        >
           Home
         </Link>
         <Link
@@ -299,7 +303,9 @@ const RoadmapPage = () => {
           return (
             <motion.div
               key={item.phase}
-              className={`roadmap-item ${index === activeIndex ? "active" : ""}`}
+              className={`roadmap-item ${
+                index === activeIndex ? "active" : ""
+              }`}
               initial={isMobile ? { opacity: 0, y: 20 } : false}
               animate={
                 isMobile
@@ -392,8 +398,8 @@ const SynergyLandingPage = () => {
             <section className="welcome-section">
               <h1 className="title glow">Welcome to Synergy</h1>
               <p className="subtitle">
-                <i>/noun</i> The combined effect of working together to produce a
-                greater effect than the sum of their individual effects.
+                <i>/noun</i> The combined effect of working together to produce
+                a greater effect than the sum of their individual effects.
               </p>
             </section>
           </LazyLoadComponent>
@@ -403,8 +409,8 @@ const SynergyLandingPage = () => {
               <h2 className="glow">About Synergy</h2>
               <p>
                 We are an exclusive group of entrepreneurs, investors, traders,
-                and creators with the goal to combine our skill sets and passions
-                for a greater combined effect.
+                and creators with the goal to combine our skill sets and
+                passions for a greater combined effect.
               </p>
               <h3 className="glow core-values">Our Core Values</h3>
               <ul className="core-values">
@@ -413,16 +419,16 @@ const SynergyLandingPage = () => {
                   what's possible.
                 </li>
                 <li>
-                  <TrendingUp size={16} /> Growth: We constantly evolve and adapt
-                  to stay ahead.
+                  <TrendingUp size={16} /> Growth: We constantly evolve and
+                  adapt to stay ahead.
                 </li>
                 <li>
                   <Users size={16} /> Collaboration: We believe in the power of
                   collective intelligence.
                 </li>
                 <li>
-                  <Target size={16} /> Excellence: We strive for nothing less than
-                  the best in all we do.
+                  <Target size={16} /> Excellence: We strive for nothing less
+                  than the best in all we do.
                 </li>
               </ul>
             </div>
@@ -453,12 +459,16 @@ const SynergyLandingPage = () => {
           </LazyLoadComponent>
 
           <LazyLoadComponent delay={0.2}>
-            <div id="application-form" className="application-form" ref={formRef}>
+            <div
+              id="application-form"
+              className="application-form"
+              ref={formRef}
+            >
               <div className="form-header">
                 <h2 className="form-title glow">Membership Application</h2>
               </div>
               <form onSubmit={handleSubmit} className="form">
-              <div className="form-grid">
+                <div className="form-grid">
                   <div className="form-field">
                     <label htmlFor="years">
                       How many years of experience do you have?
@@ -550,6 +560,31 @@ const SynergyLandingPage = () => {
                     ></textarea>
                   </div>
                   <div className="form-field">
+                    <label htmlFor="referred">Have you been referred?</label>
+                    <div className="radio-group">
+                      <label>
+                        <input
+                          type="radio"
+                          id="referred_yes"
+                          value="Yes"
+                          name="Referred"
+                          required
+                        />
+                        Yes
+                      </label>
+                      <label>
+                        <input
+                          type="radio"
+                          id="referred_no"
+                          name="Referred"
+                          value="No"
+                          required
+                        />
+                        No
+                      </label>
+                    </div>
+                  </div>
+                  <div className="form-field">
                     <label htmlFor="terms_agree">
                       Are you willing to pay a monthly subscription rate?
                     </label>
@@ -561,6 +596,7 @@ const SynergyLandingPage = () => {
                     />
                   </div>
                 </div>
+
                 <motion.button
                   type="submit"
                   className="submit-button"
@@ -607,12 +643,24 @@ const SynergyLandingPage = () => {
   );
 };
 
-// New About Us component
+// Updated About Us component with Masonry Gallery
 const AboutUs = () => {
   const testimonials = [
-    { id: 1, text: "Synergy has completely transformed my trading strategy!", author: "John D." },
-    { id: 2, text: "The networking opportunities here are unparalleled.", author: "Sarah M." },
-    { id: 3, text: "I've found amazing collaborators for my projects.", author: "Mike R." },
+    {
+      id: 1,
+      text: "Synergy has completely transformed my trading strategy!",
+      author: "John D.",
+    },
+    {
+      id: 2,
+      text: "The networking opportunities here are unparalleled.",
+      author: "Sarah M.",
+    },
+    {
+      id: 3,
+      text: "I've found amazing collaborators for my projects.",
+      author: "Mike R.",
+    },
   ];
 
   const AboutFeature = ({ icon: Icon, title, items }) => (
@@ -637,7 +685,7 @@ const AboutUs = () => {
 
   const TestimonialCard = ({ text, author }) => (
     <LazyLoadComponent>
-      <motion.div 
+      <motion.div
         className="testimonial-card"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -649,52 +697,30 @@ const AboutUs = () => {
   );
 
   const ImageGallery = () => {
-    const [cardOrder, setCardOrder] = useState([1, 2, 3, 4, 5]);
-
-    const handleCardClick = (clickedCard) => {
-      const newOrder = [
-        clickedCard,
-        ...cardOrder.filter(card => card !== clickedCard)
-      ];
-      setCardOrder(newOrder);
-    };
-
-    return (
-      <LazyLoadComponent>
-        <div className="main">
-          {cardOrder.map((cardNumber, index) => (
-            <div 
-              key={cardNumber}
-              className="card" 
-              id={`c${cardNumber}`}
-              style={{backgroundImage: `url('/card${cardNumber}.webp')`, zIndex: 5 - index}}
-              onClick={() => handleCardClick(cardNumber)}
-            ></div>
-          ))}
-        </div>
-      </LazyLoadComponent>
-    );
-  };
-
-  const AdditionalGallery = () => {
     const images = [
-      '/gallery1.webp',
-      '/gallery2.webp',
-      '/gallery3.webp',
-      '/gallery4.webp',
-      '/gallery5.webp',
-      '/gallery6.webp',
+      "src/assets/syn1.webp",
+      "src/assets/syn2.webp",
+      "src/assets/syn3.webp",
+      "src/assets/syn4.webp",
+      "src/assets/syn5.webp",
+      "src/assets/syn6.webp",
+      "src/assets/syn7.webp",
+      "src/assets/syn8.webp",
+      "src/assets/syn9.webp",
+      "src/assets/syn10.webp",
+      "/gallery11.webp",
+      "/gallery12.webp",
     ];
 
     return (
       <LazyLoadComponent>
-        <div className="additional-gallery">
+        <div className="masonry-gallery">
           {images.map((image, index) => (
             <motion.div
               key={index}
               className="gallery-item"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               <img src={image} alt={`Gallery image ${index + 1}`} />
             </motion.div>
@@ -713,39 +739,43 @@ const AboutUs = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        <h1 className="section-title glow">SYNERGY INFO</h1>
-        
+        {/* <h1 className="section-title glow">SYNERGY INFO</h1> */}
+
         <section className="about-section">
           <h2 className="subsection-title glow">What can you expect?</h2>
-          <p>Currently we are using a discord server to connect members, with future goals to expand our digital network into a Web3 agency, connecting skilled members to jobs, investors and VC's.</p>
+          <p>
+            Currently we are using a discord server to connect members, with
+            future goals to expand our digital network into a Web3 agency,
+            connecting skilled members to jobs, investors and VC's.
+          </p>
         </section>
 
         <div className="features-grid">
-          <AboutFeature 
-            icon={TrendingUp} 
-            title="Trading" 
+          <AboutFeature
+            icon={TrendingUp}
+            title="Trading"
             items={[
               "Live VC trading across crypto, meme coins and stocks/options",
               "Technical analysis masterclasses and discussions",
-              "Suite of bots for market analysis, whale tracking and insider plays"
+              "Suite of bots for market analysis, whale tracking and insider plays",
             ]}
           />
-          <AboutFeature 
-            icon={Users} 
-            title="Networking" 
+          <AboutFeature
+            icon={Users}
+            title="Networking"
             items={[
               "Skilled members across crypto trading, stocks and broader financial markets",
               "Speak with designers, website developers, coders and creatives",
-              "Future in-person meets and events"
+              "Future in-person meets and events",
             ]}
           />
-          <AboutFeature 
-            icon={Create} 
-            title="Creative" 
+          <AboutFeature
+            icon={Create}
+            title="Creative"
             items={[
               "Memecoin studio for group launches",
               "Pitch ideas and collaborate on group and individual projects",
-              "Trade with us, fund your idea, get connected with skilled individuals"
+              "Trade with us, fund your idea, get connected with skilled individuals",
             ]}
           />
         </div>
@@ -758,7 +788,6 @@ const AboutUs = () => {
             ))}
           </div>
           <ImageGallery />
-          <AdditionalGallery />
         </section>
       </motion.div>
     </div>
@@ -779,7 +808,7 @@ function App() {
   }, []);
 
   const handleEnter = () => {
-    // setEnterSite(true);
+    setEnterSite(true);
   };
 
   return (
